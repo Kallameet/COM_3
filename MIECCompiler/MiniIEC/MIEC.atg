@@ -1,0 +1,73 @@
+#include <iostream>
+#include <string>
+#include "SymbolTable.h"
+#include "SymbolFactory.h"
+#include "BaseType.h"
+
+COMPILER MIEC
+	SymbolTable _symTab;
+	SymbolFactory _symFactory;
+ 
+
+CHARACTERS
+  letter = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".
+  digit = "0123456789".
+  cr  = '\r'.
+  lf  = '\n'.
+  tab = '\t'.
+    
+TOKENS
+  ident  = letter {letter | digit}.
+  number = digit {digit}.
+  Integer = "Integer".
+  semicolon = ';'.
+  colon     = ':'.
+  lpar      = '('.
+  rpar      = ')'.
+    
+COMMENTS FROM "(*" TO "*)" NESTED
+  
+IGNORE cr + lf + tab
+
+
+PRODUCTIONS
+
+MIEC = "PROGRAM" ident 
+	   [VarDecl] 
+	   "BEGIN" 
+	     Statements 
+	   "END".
+
+VarDecl = "BEGIN_VAR"
+		    ident			(. std::wstring wsIdent(t->val); std::string stringIdent(wsIdent.begin(), wsIdent.end()); .)
+			colon 
+			Integer			(. BaseType* intType = new BaseType(BaseTypeName::INT); .)
+			semicolon			(. _symTab.Add(_symFactory.CreateVarSymbol(stringIdent, intType, intType->GetSize())); .)
+			{
+			ident			(. wsIdent = std::wstring(t->val); stringIdent = std::string(wsIdent.begin(), wsIdent.end()); .)
+			colon 
+			Integer			(. intType = new BaseType(BaseTypeName::INT); .)
+			semicolon		(. _symTab.Add(_symFactory.CreateVarSymbol(stringIdent, intType, intType->GetSize())); .)
+			}
+		  "END_VAR".
+		
+Statements = Stat {Stat}.
+Stat = ident ":=" Expr semicolon
+	   | "print" lpar Expr rpar semicolon
+	   | "WHILE" Condition "DO" Statements "END"
+	   | "IF" Condition "THEN" Statements ("END" | "ELSE" Statements "END").
+
+Expr = Term {("+" | "-") Term}.
+	   
+Term = Fact {("*" | "/") Fact}.
+
+Fact = ident
+	   | number
+	   | lpar Expr rpar.
+
+Condition = Expr Relop Expr.		  
+
+Relop = "=" | "<=" | ">=" | "!=" | "<" | ">".
+
+
+END MIEC .

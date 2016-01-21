@@ -1,0 +1,36 @@
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+.\Test Files\Test2.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+.\Test Files\Test2.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+.\Test Files\Test2.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+.\Test Files\Test2.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+.\Test Files\Test2.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+.\Test Files\Test2.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+.\Test Files\Test2.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+.\Test Files\Test2.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+.\Test Files\Test2.miec: OK
+
