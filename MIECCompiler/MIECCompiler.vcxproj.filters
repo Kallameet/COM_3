@@ -22,6 +22,12 @@
     <Filter Include="Source Files\Symbols">
       <UniqueIdentifier>{1b24702e-9190-437b-a620-a3cbdc1f2bb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\TAC">
+      <UniqueIdentifier>{510f7be3-acf2-4c67-956d-bad03aeaf782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TAC">
+      <UniqueIdentifier>{fa30e0d5-535f-48c9-b51e-e7c2cfdc28cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniIEC\main.cpp">
@@ -63,6 +69,9 @@
     <ClCompile Include="MiniIEC\TypeSymbol.cpp">
       <Filter>Source Files\Symbols</Filter>
     </ClCompile>
+    <ClCompile Include="MiniIEC\TACEntry.cpp">
+      <Filter>Source Files\TAC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniIEC\Parser.h">
@@ -100,6 +109,15 @@
     </ClInclude>
     <ClInclude Include="MiniIEC\TypeSymbol.h">
       <Filter>Header Files\Symbols</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniIEC\OpKind.h">
+      <Filter>Header Files\TAC</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniIEC\TACEntry.h">
+      <Filter>Header Files\TAC</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniIEC\TACGenerator.h">
+      <Filter>Header Files\TAC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

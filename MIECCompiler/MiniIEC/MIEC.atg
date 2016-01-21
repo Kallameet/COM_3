@@ -38,18 +38,34 @@ MIEC = "PROGRAM" ident
 	     Statements 
 	   "END".
 
-VarDecl = "BEGIN_VAR"
-		    ident			(. std::wstring wsIdent(t->val); std::string stringIdent(wsIdent.begin(), wsIdent.end()); .)
-			colon 
-			Integer			(. BaseType* intType = new BaseType(BaseTypeName::INT); .)
-			semicolon			(. _symTab.Add(_symFactory.CreateVarSymbol(stringIdent, intType, intType->GetSize())); .)
+VarDecl = "BEGIN_VAR"		(.	size_t offset = 0; .)
+		    SingleVarDecl<offset>
 			{
-			ident			(. wsIdent = std::wstring(t->val); stringIdent = std::string(wsIdent.begin(), wsIdent.end()); .)
-			colon 
-			Integer			(. intType = new BaseType(BaseTypeName::INT); .)
-			semicolon		(. _symTab.Add(_symFactory.CreateVarSymbol(stringIdent, intType, intType->GetSize())); .)
+			SingleVarDecl<offset>
 			}
 		  "END_VAR".
+
+SingleVarDecl<size_t& offset> = ident	(.	std::wstring wsIdent = std::wstring(t->val); std::string stringIdent = std::string(wsIdent.begin(), wsIdent.end()); .)
+			colon 
+			Integer						(.	BaseType* intType = new BaseType(BaseTypeName::INT); 
+											offset += intType->GetSize();
+											std::string typeSymbolName = "Integer";
+											if (_symTab.Find(typeSymbolName) == nullptr)
+											{
+												_symTab.Add(_symFactory.CreateTypeSymbol(typeSymbolName, intType));
+											} .)
+			semicolon					(.	if (_symTab.Find(stringIdent) == nullptr)
+											{
+												_symTab.Add(_symFactory.CreateVarSymbol(stringIdent, intType, offset));
+											}
+											else
+											{
+												std::wstring errorMessage = L"Symbol ";
+												errorMessage += wsIdent;
+												errorMessage += L" is already defined";
+												SemErr(errorMessage.c_str());
+											} .)
+			.
 		
 Statements = Stat {Stat}.
 Stat = ident ":=" Expr semicolon

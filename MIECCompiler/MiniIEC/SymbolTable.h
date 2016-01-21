@@ -5,7 +5,7 @@
 #include "Object.h"
 #include "Symbol.h"
 
-typedef std::unordered_map<std::string, Symbol*> SymbolMap;
+using SymbolMap = std::unordered_map<std::string, Symbol*>;
 
 class SymbolTable : public Object
 {

@@ -73,6 +73,7 @@ SymbolTable _symTab;
 	void MIEC();
 	void VarDecl();
 	void Statements();
+	void SingleVarDecl(size_t& offset);
 	void Stat();
 	void Expr();
 	void Condition();

@@ -6,7 +6,7 @@
 
 #include "Object.h"
 
-typedef std::vector<std::string> StringVector;
+using StringVector = std::vector<std::string>;
 
 class MIECCompiler : public Object
 {

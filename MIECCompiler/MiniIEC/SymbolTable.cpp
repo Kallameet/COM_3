@@ -12,6 +12,7 @@ Symbol * SymbolTable::Find(std::string const & name)
 
 void SymbolTable::Print(std::ostream & ostream)
 {
+	ostream << "Class: SymbolTable" << std::endl << std::endl;
 	for (auto sym : _symbols)
 	{
 		sym.second->Print(ostream);

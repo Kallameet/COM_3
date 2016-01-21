@@ -75,21 +75,10 @@ void Parser::MIEC() {
 
 void Parser::VarDecl() {
 		Expect(11);
-		Expect(1);
-		std::wstring wsIdent(t->val); std::string stringIdent(wsIdent.begin(), wsIdent.end()); 
-		Expect(5);
-		Expect(3);
-		BaseType* intType = new BaseType(BaseTypeName::INT); 
-		Expect(4);
-		_symTab.Add(_symFactory.CreateVarSymbol(stringIdent, intType, intType->GetSize())); 
+		size_t offset = 0; 
+		SingleVarDecl(offset);
 		while (la->kind == 1) {
-			Get();
-			wsIdent = std::wstring(t->val); stringIdent = std::string(wsIdent.begin(), wsIdent.end()); 
-			Expect(5);
-			Expect(3);
-			intType = new BaseType(BaseTypeName::INT); 
-			Expect(4);
-			_symTab.Add(_symFactory.CreateVarSymbol(stringIdent, intType, intType->GetSize())); 
+			SingleVarDecl(offset);
 		}
 		Expect(12);
 }
@@ -99,6 +88,27 @@ void Parser::Statements() {
 		while (StartOf(1)) {
 			Stat();
 		}
+}
+
+void Parser::SingleVarDecl(size_t& offset) {
+		Expect(1);
+		std::wstring wsIdent = std::wstring(t->val); std::string stringIdent = std::string(wsIdent.begin(), wsIdent.end()); 
+		Expect(5);
+		Expect(3);
+		BaseType* intType = new BaseType(BaseTypeName::INT); 
+		offset += intType->GetSize(); 
+		Expect(4);
+		if (_symTab.Find(stringIdent) == nullptr)
+		{
+			_symTab.Add(_symFactory.CreateVarSymbol(stringIdent, intType, offset));
+		}
+		else
+		{
+			std::wstring errorMessage = L"Symbol ";
+			errorMessage += wsIdent;
+			errorMessage += L" is already defined";
+			SemErr(errorMessage.c_str());
+		} 
 }
 
 void Parser::Stat() {

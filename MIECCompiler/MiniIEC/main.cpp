@@ -7,7 +7,6 @@
 #include "SymbolTable.h"
 #include "MIECCompiler.h"
 
-
 int main(int argc, char* argv[])
 {	
 	if (argc >= 2)

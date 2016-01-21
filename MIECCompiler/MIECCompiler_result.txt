@@ -34,3 +34,62 @@ MiniIEC.exe
 .\Test Files\Test1.miec: OK
 .\Test Files\Test2.miec: OK
 
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+.\Test Files\Test2.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: FAILED: 1 error(s) detected
+
+MiniIEC.exe
+.\Test Files\Test1.miec: FAILED: 1 error(s) detected
+
+MiniIEC.exe
+.\Test Files\Test1.miec: FAILED: 2 error(s) detected
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+
+MiniIEC.exe
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+
+MiniIEC.exe
+.\Test Files\Test1.miec: OK
+

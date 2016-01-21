@@ -17,5 +17,5 @@ void Symbol::Print(std::ostream & ostream)
 {
 	ostream << "Class: Symbol" << std::endl;
 	ostream << "Name: " << _name << std::endl;
-	ostream << "Type: " << _type << std::endl;
+	ostream << "Type: " << _type->GetTypeName() << std::endl;
 }

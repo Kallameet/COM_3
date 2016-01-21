@@ -86,6 +86,7 @@
     <ClCompile Include="MiniIEC\Symbol.cpp" />
     <ClCompile Include="MiniIEC\SymbolFactory.cpp" />
     <ClCompile Include="MiniIEC\SymbolTable.cpp" />
+    <ClCompile Include="MiniIEC\TACEntry.cpp" />
     <ClCompile Include="MiniIEC\Type.cpp" />
     <ClCompile Include="MiniIEC\TypeSymbol.cpp" />
     <ClCompile Include="MiniIEC\VarSymbol.cpp" />
@@ -102,11 +103,14 @@
     <ClInclude Include="MiniIEC\ConstIntSymbol.h" />
     <ClInclude Include="MiniIEC\MIECCompiler.h" />
     <ClInclude Include="MiniIEC\Object.h" />
+    <ClInclude Include="MiniIEC\OpKind.h" />
     <ClInclude Include="MiniIEC\Parser.h" />
     <ClInclude Include="MiniIEC\Scanner.h" />
     <ClInclude Include="MiniIEC\Symbol.h" />
     <ClInclude Include="MiniIEC\SymbolFactory.h" />
     <ClInclude Include="MiniIEC\SymbolTable.h" />
+    <ClInclude Include="MiniIEC\TACEntry.h" />
+    <ClInclude Include="MiniIEC\TACGenerator.h" />
     <ClInclude Include="MiniIEC\Type.h" />
     <ClInclude Include="MiniIEC\TypeSymbol.h" />
     <ClInclude Include="MiniIEC\VarSymbol.h" />
