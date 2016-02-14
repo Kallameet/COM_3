@@ -10,7 +10,11 @@ size_t VarSymbol::GetOffset()
 
 void VarSymbol::Print(std::ostream & ostream)
 {
+#ifdef _DEBUG 
+
 	ostream << "Class: VarSymbol" << std::endl;
 	ostream << "Offset: " << _offset << std::endl;
 	Symbol::Print(ostream);
+
+#endif
 }

@@ -1,20 +1,27 @@
 #include "TACGenerator.h"
 
-void TACGenerator::AddEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* resultSymbol)
+TACEntry* TACGenerator::AddEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* resultSymbol)
 {
 	 TACEntry* tacEntry = new TACEntry(operatorKind, leftSymbol, resultSymbol);
-	 _tacEntries.push_back(tacEntry);	 
+	 _tacEntries.push_back(tacEntry);
+	 return tacEntry;
 }
 
-void TACGenerator::AddEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* rightSymbol, Symbol* resultSymbol)
+TACEntry* TACGenerator::AddEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* rightSymbol, Symbol* resultSymbol)
 {
 	TACEntry* tacEntry = new TACEntry(operatorKind, leftSymbol, rightSymbol, resultSymbol);
-	 _tacEntries.push_back(tacEntry);	 
+	 _tacEntries.push_back(tacEntry);	
+	 return tacEntry;
 }
 
 std::list<TACEntry*> TACGenerator::GetEntries()
 {
 	return _tacEntries;
+}
+
+size_t TACGenerator::GetLastElementIndex()
+{
+	return _tacEntries.size() - 1;
 }
 
 void TACGenerator::CleanEntries() 
@@ -28,6 +35,8 @@ void TACGenerator::CleanEntries()
 
 void TACGenerator::Print(std::ostream & ostream)
 {
+#ifdef _DEBUG 
+
 	size_t counter = 0;
 
 	 for (TACEntry* pEntry : _tacEntries)
@@ -37,4 +46,14 @@ void TACGenerator::Print(std::ostream & ostream)
 		 ostream << std::endl;
 		 counter++;
 	 }
+
+#endif
+}
+
+TACGenerator::~TACGenerator()
+{
+	for (auto entry : _tacEntries)
+	{
+		delete entry;
+	}
 }

@@ -10,7 +10,11 @@ int ConstIntSymbol::GetValue()
 
 void ConstIntSymbol::Print(std::ostream & ostream)
 {
+#ifdef _DEBUG 
+
 	ostream << "Class: ConstIntSymbol" << std::endl;
 	ostream << "Value: " << _value << std::endl;
 	Symbol::Print(ostream);
+
+#endif
 }

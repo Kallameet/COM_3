@@ -11,10 +11,10 @@ class SymbolTable : public Object
 {
 public:
 	void Add(Symbol* symbol);
-
 	Symbol* Find(std::string const& name);
-
 	void Print(std::ostream & ostream);
+
+	virtual ~SymbolTable();
 private:
 	SymbolMap _symbols;
 };

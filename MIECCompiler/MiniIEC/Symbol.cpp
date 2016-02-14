@@ -15,7 +15,11 @@ Type * Symbol::GetType()
 
 void Symbol::Print(std::ostream & ostream)
 {
+#ifdef _DEBUG 
+
 	ostream << "Class: Symbol" << std::endl;
 	ostream << "Name: " << _name << std::endl;
 	ostream << "Type: " << _type->GetTypeName() << std::endl;
+
+#endif
 }

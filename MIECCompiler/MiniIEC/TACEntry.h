@@ -13,10 +13,15 @@ public:
 	TACEntry* GetArg1();
 	TACEntry* GetArg2();
 	void SetTmpResult(int reg);
-
-	virtual void Print(std::ostream& ostream);
-	virtual void PrintEntry(std::ostream& ostream);
 	
+	void SetLeftSymbol(Symbol* symbol);
+	void SetRightSymbol(Symbol* symbol);
+	void SetResultSymbol(Symbol* symbol);
+
+	virtual void Print(std::ostream& ostream);	
+	
+	virtual ~TACEntry();
+
 private:
 	OpKind _operatorKind;
 

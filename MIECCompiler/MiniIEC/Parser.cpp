@@ -155,26 +155,42 @@ void Parser::Print() {
 }
 
 void Parser::Loop() {
-		Symbol* conditionResultSymbol = 0; 
+		Symbol* conditionResultSymbol = 0;
+		Symbol* beginAddress = 0;
+		Symbol* jumpTargetAddress = 0; 
 		Expect(15);
+		beginAddress = CreateNewIntConstSymbol(_tacGenerator.GetLastElementIndex() + 1); 
 		Condition(conditionResultSymbol);
+		auto jumpTACEntry = _tacGenerator.AddEntry(OpKind::IfFalseJump, conditionResultSymbol, nullptr, nullptr); 
 		Expect(16);
 		Statements();
 		Expect(10);
+		_tacGenerator.AddEntry(OpKind::Jump, beginAddress, nullptr);
+		jumpTargetAddress = CreateNewIntConstSymbol(_tacGenerator.GetLastElementIndex() + 1); 
+		jumpTACEntry->SetRightSymbol(jumpTargetAddress); 
 }
 
 void Parser::IfElse() {
 		Symbol* conditionResultSymbol = 0; 
+		Symbol* jumpTargetAddress = 0;
 		Expect(17);
 		Condition(conditionResultSymbol);
+		auto jumpTACEntry = _tacGenerator.AddEntry(OpKind::IfFalseJump, conditionResultSymbol, nullptr, nullptr); 
 		Expect(18);
 		Statements();
 		if (la->kind == 10) {
 			Get();
+			jumpTargetAddress = CreateNewIntConstSymbol(_tacGenerator.GetLastElementIndex() + 1); 
+			jumpTACEntry->SetRightSymbol(jumpTargetAddress); 
 		} else if (la->kind == 19) {
 			Get();
+			auto skipElseTACEntry = _tacGenerator.AddEntry(OpKind::Jump, nullptr, nullptr);
+			jumpTargetAddress = CreateNewIntConstSymbol(_tacGenerator.GetLastElementIndex() + 1); 
+			jumpTACEntry->SetRightSymbol(jumpTargetAddress); 
 			Statements();
 			Expect(10);
+			jumpTargetAddress = CreateNewIntConstSymbol(_tacGenerator.GetLastElementIndex() + 1); 
+			skipElseTACEntry->SetLeftSymbol(jumpTargetAddress); 
 		} else SynErr(32);
 }
 
@@ -266,20 +282,10 @@ void Parser::Fact(Symbol*& factResultSymbol) {
 
 void Parser::Number(Symbol*& numberSymbol) {
 		Expect(2);
-		std::string numberString = CreateString(CreateWString(t->val)); 
-		std::string tmp(numberString);
-		tmp.insert(0, "const");
+		std::string numberString = CreateString(CreateWString(t->val));																									
+		int val = std::stoi(numberString);												
+		numberSymbol = CreateNewIntConstSymbol(val);												
 		
-														numberSymbol =_symTab.Find(tmp);
-														if (numberSymbol == nullptr)
-														{
-															int val = std::stoi(numberString);
-		
-															auto intTypeSymbol = _symTab.Find("Integer");
-															numberSymbol = _symFactory.CreateConstIntSymbol(tmp, intTypeSymbol->GetType(), val);
-															_symTab.Add(numberSymbol);
-														}
-													
 }
 
 void Parser::Relop(OpKind& operatorKind) {
