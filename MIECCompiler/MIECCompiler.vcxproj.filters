@@ -194,5 +194,17 @@
     <None Include="Test Files\MultiplyOperationTest.miec">
       <Filter>Test Files</Filter>
     </None>
+    <None Include="Test Files\IfElseWithConditionTest.miec">
+      <Filter>Test Files</Filter>
+    </None>
+    <None Include="Test Files\IfWithConditionTest.miec">
+      <Filter>Test Files</Filter>
+    </None>
+    <None Include="Test Files\PrintTest.miec">
+      <Filter>Test Files</Filter>
+    </None>
+    <None Include="Test Files\WhileTest.miec">
+      <Filter>Test Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

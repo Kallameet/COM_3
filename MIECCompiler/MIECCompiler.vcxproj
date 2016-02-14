@@ -134,10 +134,14 @@
     <None Include="Test Files\ArithmeticExpressionTest.miec" />
     <None Include="Test Files\AssignLiteralToLiteralTest.miec" />
     <None Include="Test Files\AssignNumberToLiteralTest.miec" />
+    <None Include="Test Files\IfElseWithConditionTest.miec" />
+    <None Include="Test Files\IfWithConditionTest.miec" />
     <None Include="Test Files\MultipleFactsTest.miec" />
     <None Include="Test Files\MultipleTermsTest.miec" />
     <None Include="Test Files\MultiplyOperationTest.miec" />
+    <None Include="Test Files\PrintTest.miec" />
     <None Include="Test Files\Test2.miec" />
+    <None Include="Test Files\WhileTest.miec" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
