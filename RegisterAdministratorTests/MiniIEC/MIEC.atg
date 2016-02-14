@@ -1,0 +1,150 @@
+#include <iostream>
+#include <string>
+#include "AtgHelpers.h"
+#include "SymbolTable.h"
+#include "SymbolFactory.h"
+#include "BaseType.h"
+#include "TACGenerator.h"
+
+COMPILER MIEC
+	SymbolTable _symTab;
+	SymbolFactory _symFactory;
+	TACGenerator _tacGenerator;
+	size_t offset = 0;
+
+CHARACTERS
+  letter = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".
+  digit = "0123456789".
+  cr  = '\r'.
+  lf  = '\n'.
+  tab = '\t'.
+    
+TOKENS
+  ident  = letter {letter | digit}.
+  number = digit {digit}.
+  Integer = "Integer".
+  semicolon = ';'.
+  colon     = ':'.
+  lpar      = '('.
+  rpar      = ')'.
+    
+COMMENTS FROM "(*" TO "*)" NESTED
+  
+IGNORE cr + lf + tab
+
+
+PRODUCTIONS
+
+MIEC = "PROGRAM" ident 
+	   [VarDecl] 
+	   "BEGIN" 
+	     Statements 
+	   "END".
+
+VarDecl = "BEGIN_VAR"
+		    SingleVarDecl<offset>
+			{
+			SingleVarDecl<offset>
+			}
+		  "END_VAR".
+
+SingleVarDecl<size_t& offset>			(.	std::string stringIdent; .)
+			=
+			Ident<stringIdent>	
+			colon 
+			Integer						(.	BaseType* intType = new BaseType(BaseTypeName::INT); 
+											offset += intType->GetSize();
+											std::string typeSymbolName = "Integer";
+											if (_symTab.Find(typeSymbolName) == nullptr)
+											{
+												_symTab.Add(_symFactory.CreateTypeSymbol(typeSymbolName, intType));
+											} .)
+			semicolon					(.	if (_symTab.Find(stringIdent) == nullptr)
+											{
+												_symTab.Add(_symFactory.CreateVarSymbol(stringIdent, intType, offset));
+											}
+											else
+											{
+												std::wstring errorMessage = L"Symbol ";
+												std::wstring wstringIdent(stringIdent.begin(), stringIdent.end());
+												errorMessage += wstringIdent;
+												errorMessage += L" is already defined";
+												SemErr(errorMessage.c_str());
+											} .)
+			.
+		
+Statements = Stat {Stat}.
+
+Stat										(. std::string identName; Symbol* exprResultSymbol = 0; .)
+		=
+		Ident<identName>					(. auto leftSymbol = _symTab.Find(identName); .) 
+		":=" 
+		Expr<exprResultSymbol>			
+		semicolon							(. _tacGenerator.AddEntry(OpKind::Assign, exprResultSymbol, leftSymbol); .)
+		| "print" lpar Expr<exprResultSymbol> rpar semicolon
+		| "WHILE" Condition "DO" Statements "END"
+		| "IF" Condition "THEN" Statements ("END" | "ELSE" Statements "END").
+
+
+Expr<Symbol* exprResultSymbol>				(. Symbol* termResultSymbol = 0; .)
+	=
+	Term<termResultSymbol>					(. exprResultSymbol = termResultSymbol; .)
+	{
+	("+" | "-") 
+	Term<termResultSymbol>
+	}.
+	   
+
+Term<Symbol* termResultSymbol>				(. Symbol* factResultSymbol = 0; .)
+	=
+	Fact<factResultSymbol>					(. termResultSymbol = factResultSymbol; .)
+	{
+	("*" | "/")
+	Fact<factResultSymbol>
+	}
+.
+
+
+Fact<Symbol* factResultSymbol>	 			(. std::string identName; Symbol* exprResultSymbol = 0; .)
+	=
+	Ident<identName>						(. factResultSymbol = _symTab.Find(identName); .)
+	| Number<factResultSymbol>
+	| lpar 
+	Expr<exprResultSymbol>
+	rpar.
+
+
+Condition 									(. Symbol* exprResultSymbol = 0; .)
+	=
+	Expr<exprResultSymbol>
+	Relop
+	Expr<exprResultSymbol>.		  
+
+
+Relop = "=" | "<=" | ">=" | "!=" | "<" | ">".
+
+
+Ident<std::string& name> = 
+		ident	(. std::wstring wsIdent = CreateWString(t->val); name = CreateString(wsIdent); .)
+		.
+
+
+Number<Symbol* numberSymbol> 
+	= 
+	number									(.	std::string numberString = CreateString(CreateWString(t->val)); 
+												std::string tmp(numberString);
+												tmp.insert(0, "const");
+
+												numberSymbol =_symTab.Find(tmp);
+												if (numberSymbol == nullptr)
+												{
+													int val = std::stoi(numberString);
+
+													auto intTypeSymbol = _symTab.Find("Integer");
+													numberSymbol = _symFactory.CreateConstIntSymbol(tmp, intTypeSymbol->GetType(), val);
+													_symTab.Add(numberSymbol);
+												}
+											.)
+	.
+
+END MIEC .
