@@ -1,7 +1,7 @@
 #include "TACEntry.h"
 
 TACEntry::TACEntry(OpKind operatorKind, Symbol * leftSymbol, Symbol* resultSymbol)
-	: _operatorKind(operatorKind), _leftSymbol(leftSymbol), _resultSymbol(resultSymbol)
+	: _operatorKind(operatorKind), _leftSymbol(leftSymbol), _rightSymbol(nullptr), _resultSymbol(resultSymbol)
 {}
 
 TACEntry::TACEntry(OpKind operatorKind, Symbol * leftSymbol, Symbol * rightSymbol, Symbol* resultSymbol)
@@ -29,13 +29,25 @@ void TACEntry::Print(std::ostream & ostream)
 		{ OpKind::Print			, "Print" },
 		{ OpKind::Exit			, "Exit" }
 	};
+		
+	if (_resultSymbol != nullptr)
+	{
+		ostream << _resultSymbol->GetName() << " = ";
+	}
+
+	ostream << mappedEnumNames[_operatorKind] << "( ";
 	
-	ostream << "Class: TACEntry" << std::endl;
-	ostream << "Operator kind:" << mappedEnumNames[_operatorKind] << std::endl;
-	ostream << "Left symbol:" << std::endl;
-	_leftSymbol->Print(ostream);
-	ostream << "Right symbol:" << std::endl;
-	_rightSymbol->Print(ostream);
+	if (_leftSymbol != nullptr)
+	{
+		ostream << _leftSymbol->GetName() << " ";
+	}
+
+	if (_rightSymbol != nullptr)
+	{
+		ostream << _rightSymbol->GetName() << " ";		
+	}
+
+	ostream << ")";
 }
 
 void TACEntry::PrintEntry(std::ostream & ostream)
@@ -62,6 +74,11 @@ void TACEntry::PrintEntry(std::ostream & ostream)
 
 	
 	ostream << _leftSymbol->GetName() << " " << mappedEnumNames[_operatorKind];
+
+	if (_leftSymbol != nullptr)
+	{
+		ostream << " " << _rightSymbol->GetName();
+	}
 
 	if (_rightSymbol != nullptr)
 	{

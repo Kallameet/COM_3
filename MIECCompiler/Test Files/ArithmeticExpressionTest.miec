@@ -1,0 +1,9 @@
+PROGRAM Hello
+	BEGIN_VAR
+		a: Integer;
+		b: Integer;
+		c: Integer;
+	END_VAR
+BEGIN
+	a := 3 * (a + 5) / 3 + 4 * b;
+END

@@ -1,4 +1,5 @@
 #include "AtgHelpers.h"
+#include "SymbolFactory.h"
 
 std::wstring CreateWString(wchar_t* val)
 {

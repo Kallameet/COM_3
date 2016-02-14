@@ -11,6 +11,18 @@ COMPILER MIEC
 	SymbolFactory _symFactory;
 	TACGenerator _tacGenerator;
 	size_t offset = 0;
+	Symbol* intTypeSymbol;
+	size_t tmpCounter = 0;
+
+	Symbol* CreateNewIntVarSymbol(std::string name)
+	{
+		auto intType = intTypeSymbol->GetType();
+		offset += intType->GetSize();		
+		auto intVarSymbol = _symFactory.CreateVarSymbol(name, intType, offset);
+		_symTab.Add(intVarSymbol);
+
+		return intVarSymbol;
+	}
 
 CHARACTERS
   letter = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".
@@ -57,7 +69,8 @@ SingleVarDecl<size_t& offset>			(.	std::string stringIdent; .)
 											std::string typeSymbolName = "Integer";
 											if (_symTab.Find(typeSymbolName) == nullptr)
 											{
-												_symTab.Add(_symFactory.CreateTypeSymbol(typeSymbolName, intType));
+												intTypeSymbol = _symFactory.CreateTypeSymbol(typeSymbolName, intType);
+												_symTab.Add(intTypeSymbol);
 											} .)
 			semicolon					(.	if (_symTab.Find(stringIdent) == nullptr)
 											{
@@ -86,31 +99,65 @@ Stat										(. std::string identName; Symbol* exprResultSymbol = 0; .)
 		| "IF" Condition "THEN" Statements ("END" | "ELSE" Statements "END").
 
 
-Expr<Symbol* exprResultSymbol>				(. Symbol* termResultSymbol = 0; .)
+Expr<Symbol*& exprResultSymbol>				(.	Symbol* termResultSymbol = 0; 
+												Symbol* loopTermResultSymbol = 0; 
+												OpKind operatorKind;												
+												Symbol* tmpSymbol = CreateNewIntVarSymbol("tmp"+std::to_string(tmpCounter++));
+												bool firstIteration = true; .)
 	=
-	Term<termResultSymbol>					(. exprResultSymbol = termResultSymbol; .)
+	Term<termResultSymbol>					(.	exprResultSymbol = termResultSymbol; .)
 	{
-	("+" | "-") 
-	Term<termResultSymbol>
+	(
+	"+"										(.	operatorKind = OpKind::Add; .)
+	| 
+	"-"										(.	operatorKind = OpKind::Subtract; .)
+	)
+	Term<loopTermResultSymbol>				(.	if (firstIteration)
+												{
+													_tacGenerator.AddEntry(operatorKind, termResultSymbol, loopTermResultSymbol, tmpSymbol); 
+													firstIteration = false;
+													exprResultSymbol = tmpSymbol;
+												} 
+												else
+												{
+													_tacGenerator.AddEntry(operatorKind, tmpSymbol, loopTermResultSymbol, tmpSymbol); 
+												} .)
 	}.
 	   
 
-Term<Symbol* termResultSymbol>				(. Symbol* factResultSymbol = 0; .)
+Term<Symbol*& termResultSymbol>				(.	Symbol* factResultSymbol = 0; 
+												Symbol* loopFactResultSymbol = 0; 
+												OpKind operatorKind;												
+												Symbol* tmpSymbol = CreateNewIntVarSymbol("tmp"+std::to_string(tmpCounter++));
+												bool firstIteration = true; .)
 	=
 	Fact<factResultSymbol>					(. termResultSymbol = factResultSymbol; .)
 	{
-	("*" | "/")
-	Fact<factResultSymbol>
+	(
+	"*"										(.	operatorKind = OpKind::Multiply; .)
+	| 
+	"/"										(.	operatorKind = OpKind::Divide; .)
+	)
+	Fact<loopFactResultSymbol>				(.	if (firstIteration)
+												{
+													_tacGenerator.AddEntry(operatorKind, factResultSymbol, loopFactResultSymbol, tmpSymbol); 
+													firstIteration = false;
+													termResultSymbol = tmpSymbol;
+												} 
+												else
+												{
+													_tacGenerator.AddEntry(operatorKind, tmpSymbol, loopFactResultSymbol, tmpSymbol); 
+												} .)
 	}
 .
 
 
-Fact<Symbol* factResultSymbol>	 			(. std::string identName; Symbol* exprResultSymbol = 0; .)
+Fact<Symbol*& factResultSymbol>	 			(. std::string identName; .)
 	=
 	Ident<identName>						(. factResultSymbol = _symTab.Find(identName); .)
 	| Number<factResultSymbol>
 	| lpar 
-	Expr<exprResultSymbol>
+	Expr<factResultSymbol>
 	rpar.
 
 
@@ -129,7 +176,7 @@ Ident<std::string& name> =
 		.
 
 
-Number<Symbol* numberSymbol> 
+Number<Symbol*& numberSymbol> 
 	= 
 	number									(.	std::string numberString = CreateString(CreateWString(t->val)); 
 												std::string tmp(numberString);

@@ -66,6 +66,18 @@ SymbolTable _symTab;
 	SymbolFactory _symFactory;
 	TACGenerator _tacGenerator;
 	size_t offset = 0;
+	Symbol* intTypeSymbol;
+	size_t tmpCounter = 0;
+
+	Symbol* CreateNewIntVarSymbol(std::string name)
+	{
+		auto intType = intTypeSymbol->GetType();
+		offset += intType->GetSize();		
+		auto intVarSymbol = _symFactory.CreateVarSymbol(name, intType, offset);
+		_symTab.Add(intVarSymbol);
+
+		return intVarSymbol;
+	}
 
 
 
@@ -79,11 +91,11 @@ SymbolTable _symTab;
 	void SingleVarDecl(size_t& offset);
 	void Ident(std::string& name);
 	void Stat();
-	void Expr(Symbol* exprResultSymbol);
+	void Expr(Symbol*& exprResultSymbol);
 	void Condition();
-	void Term(Symbol* termResultSymbol);
-	void Fact(Symbol* factResultSymbol);
-	void Number(Symbol* numberSymbol);
+	void Term(Symbol*& termResultSymbol);
+	void Fact(Symbol*& factResultSymbol);
+	void Number(Symbol*& numberSymbol);
 	void Relop();
 
 	void Parse();

@@ -99,7 +99,8 @@ void Parser::SingleVarDecl(size_t& offset) {
 		std::string typeSymbolName = "Integer";
 		if (_symTab.Find(typeSymbolName) == nullptr)
 		{
-			_symTab.Add(_symFactory.CreateTypeSymbol(typeSymbolName, intType));
+			intTypeSymbol = _symFactory.CreateTypeSymbol(typeSymbolName, intType);
+			_symTab.Add(intTypeSymbol);
 		} 
 		Expect(4);
 		if (_symTab.Find(stringIdent) == nullptr)
@@ -157,17 +158,33 @@ void Parser::Stat() {
 		} else SynErr(32);
 }
 
-void Parser::Expr(Symbol* exprResultSymbol) {
+void Parser::Expr(Symbol*& exprResultSymbol) {
 		Symbol* termResultSymbol = 0; 
+		Symbol* loopTermResultSymbol = 0; 
+		OpKind operatorKind;												
+		Symbol* tmpSymbol = CreateNewIntVarSymbol("tmp"+std::to_string(tmpCounter++));
+		bool firstIteration = true; 
 		Term(termResultSymbol);
 		exprResultSymbol = termResultSymbol; 
 		while (la->kind == 20 || la->kind == 21) {
 			if (la->kind == 20) {
 				Get();
+				operatorKind = OpKind::Add; 
 			} else {
 				Get();
+				operatorKind = OpKind::Subtract; 
 			}
-			Term(termResultSymbol);
+			Term(loopTermResultSymbol);
+			if (firstIteration)
+			{
+				_tacGenerator.AddEntry(operatorKind, termResultSymbol, loopTermResultSymbol, tmpSymbol); 
+				firstIteration = false;
+				exprResultSymbol = tmpSymbol;
+			} 
+			else
+			{
+				_tacGenerator.AddEntry(operatorKind, tmpSymbol, loopTermResultSymbol, tmpSymbol); 
+			} 
 		}
 }
 
@@ -178,22 +195,38 @@ void Parser::Condition() {
 		Expr(exprResultSymbol);
 }
 
-void Parser::Term(Symbol* termResultSymbol) {
+void Parser::Term(Symbol*& termResultSymbol) {
 		Symbol* factResultSymbol = 0; 
+		Symbol* loopFactResultSymbol = 0; 
+		OpKind operatorKind;												
+		Symbol* tmpSymbol = CreateNewIntVarSymbol("tmp"+std::to_string(tmpCounter++));
+		bool firstIteration = true; 
 		Fact(factResultSymbol);
 		termResultSymbol = factResultSymbol; 
 		while (la->kind == 22 || la->kind == 23) {
 			if (la->kind == 22) {
 				Get();
+				operatorKind = OpKind::Multiply; 
 			} else {
 				Get();
+				operatorKind = OpKind::Divide; 
 			}
-			Fact(factResultSymbol);
+			Fact(loopFactResultSymbol);
+			if (firstIteration)
+			{
+				_tacGenerator.AddEntry(operatorKind, factResultSymbol, loopFactResultSymbol, tmpSymbol); 
+				firstIteration = false;
+				termResultSymbol = tmpSymbol;
+			} 
+			else
+			{
+				_tacGenerator.AddEntry(operatorKind, tmpSymbol, loopFactResultSymbol, tmpSymbol); 
+			} 
 		}
 }
 
-void Parser::Fact(Symbol* factResultSymbol) {
-		std::string identName; Symbol* exprResultSymbol = 0; 
+void Parser::Fact(Symbol*& factResultSymbol) {
+		std::string identName; 
 		if (la->kind == 1) {
 			Ident(identName);
 			factResultSymbol = _symTab.Find(identName); 
@@ -201,12 +234,12 @@ void Parser::Fact(Symbol* factResultSymbol) {
 			Number(factResultSymbol);
 		} else if (la->kind == 6) {
 			Get();
-			Expr(exprResultSymbol);
+			Expr(factResultSymbol);
 			Expect(7);
 		} else SynErr(33);
 }
 
-void Parser::Number(Symbol* numberSymbol) {
+void Parser::Number(Symbol*& numberSymbol) {
 		Expect(2);
 		std::string numberString = CreateString(CreateWString(t->val)); 
 		std::string tmp(numberString);

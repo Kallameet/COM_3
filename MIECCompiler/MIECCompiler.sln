@@ -7,8 +7,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MIECCompiler", "MIECCompile
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RegisterAdministratorTests", "..\RegisterAdministratorTests\RegisterAdministratorTests.vcxproj", "{23345C39-9FDC-4B68-9258-190429F02731}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TACTests", "TACTests\TACTests.vcxproj", "{C8CD2161-47F3-41D7-8738-74F493FB54B9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -31,14 +29,6 @@ Global
 		{23345C39-9FDC-4B68-9258-190429F02731}.Release|Win32.Build.0 = Release|Win32
 		{23345C39-9FDC-4B68-9258-190429F02731}.Release|x64.ActiveCfg = Release|x64
 		{23345C39-9FDC-4B68-9258-190429F02731}.Release|x64.Build.0 = Release|x64
-		{C8CD2161-47F3-41D7-8738-74F493FB54B9}.Debug|Win32.ActiveCfg = Debug|Win32
-		{C8CD2161-47F3-41D7-8738-74F493FB54B9}.Debug|Win32.Build.0 = Debug|Win32
-		{C8CD2161-47F3-41D7-8738-74F493FB54B9}.Debug|x64.ActiveCfg = Debug|x64
-		{C8CD2161-47F3-41D7-8738-74F493FB54B9}.Debug|x64.Build.0 = Debug|x64
-		{C8CD2161-47F3-41D7-8738-74F493FB54B9}.Release|Win32.ActiveCfg = Release|Win32
-		{C8CD2161-47F3-41D7-8738-74F493FB54B9}.Release|Win32.Build.0 = Release|Win32
-		{C8CD2161-47F3-41D7-8738-74F493FB54B9}.Release|x64.ActiveCfg = Release|x64
-		{C8CD2161-47F3-41D7-8738-74F493FB54B9}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

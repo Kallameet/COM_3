@@ -155,5 +155,26 @@
     <None Include="Test Files\Test2.miec">
       <Filter>Test Files</Filter>
     </None>
+    <None Include="Test Files\AddOperationTest.miec">
+      <Filter>Test Files</Filter>
+    </None>
+    <None Include="Test Files\ArithmeticExpressionTest.miec">
+      <Filter>Test Files</Filter>
+    </None>
+    <None Include="Test Files\AssignLiteralToLiteralTest.miec">
+      <Filter>Test Files</Filter>
+    </None>
+    <None Include="Test Files\AssignNumberToLiteralTest.miec">
+      <Filter>Test Files</Filter>
+    </None>
+    <None Include="Test Files\MultipleFactsTest.miec">
+      <Filter>Test Files</Filter>
+    </None>
+    <None Include="Test Files\MultipleTermsTest.miec">
+      <Filter>Test Files</Filter>
+    </None>
+    <None Include="Test Files\MultiplyOperationTest.miec">
+      <Filter>Test Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

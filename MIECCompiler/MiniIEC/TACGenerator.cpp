@@ -12,6 +12,11 @@ void TACGenerator::AddEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* rig
 	 _tacEntries.push_back(tacEntry);	 
 }
 
+std::list<TACEntry*> TACGenerator::GetEntries()
+{
+	return _tacEntries;
+}
+
 void TACGenerator::CleanEntries() 
 {
 	 for (TACEntry* pEntry : _tacEntries) 
@@ -23,20 +28,13 @@ void TACGenerator::CleanEntries()
 
 void TACGenerator::Print(std::ostream & ostream)
 {
+	size_t counter = 0;
+
 	 for (TACEntry* pEntry : _tacEntries)
 	 {
-		  pEntry->Print(ostream);
+		 ostream << counter << ": ";
+		 pEntry->Print(ostream);
+		 ostream << std::endl;
+		 counter++;
 	 }
-}
-
-void TACGenerator::PrintEntries(std::ostream & ostream)
-{
-	int i = 0;
-
-	for (TACEntry* pEntry : _tacEntries)
-	{
-		ostream << i << ": ";
-		pEntry->PrintEntry(ostream);
-		i++;
-	}
 }
