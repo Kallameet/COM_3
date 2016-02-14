@@ -14,11 +14,11 @@ COMPILER MIEC
 	Symbol* intTypeSymbol;
 	size_t tmpCounter = 0;
 
-	Symbol* CreateNewIntVarSymbol(std::string name)
+	Symbol* CreateNewIntVarTmpSymbol()
 	{
 		auto intType = intTypeSymbol->GetType();
 		offset += intType->GetSize();		
-		auto intVarSymbol = _symFactory.CreateVarSymbol(name, intType, offset);
+		auto intVarSymbol = _symFactory.CreateVarSymbol("tmp"+std::to_string(tmpCounter++), intType, offset);
 		_symTab.Add(intVarSymbol);
 
 		return intVarSymbol;
@@ -86,23 +86,65 @@ SingleVarDecl<size_t& offset>			(.	std::string stringIdent; .)
 											} .)
 			.
 		
-Statements = Stat {Stat}.
+Statements 
+	= 
+	Stat 
+	{Stat}.
 
-Stat										(. std::string identName; Symbol* exprResultSymbol = 0; .)
-		=
-		Ident<identName>					(. auto leftSymbol = _symTab.Find(identName); .) 
-		":=" 
-		Expr<exprResultSymbol>			
-		semicolon							(. _tacGenerator.AddEntry(OpKind::Assign, exprResultSymbol, leftSymbol); .)
-		| "print" lpar Expr<exprResultSymbol> rpar semicolon
-		| "WHILE" Condition "DO" Statements "END"
-		| "IF" Condition "THEN" Statements ("END" | "ELSE" Statements "END").
+Stat
+	=
+	Assignement
+	| Print
+	| Loop
+	| IfElse
+	.
+
+Assignement									(. std::string identName; Symbol* exprResultSymbol = 0; .)
+	=
+	Ident<identName>						(. auto leftSymbol = _symTab.Find(identName); .) 
+	":=" 
+	Expr<exprResultSymbol>			
+	semicolon								(. _tacGenerator.AddEntry(OpKind::Assign, exprResultSymbol, leftSymbol); .)
+	.
+
+Print										(. Symbol* exprResultSymbol = 0; .)
+	=
+	"print" 
+	lpar 
+	Expr<exprResultSymbol> 
+	rpar 
+	semicolon								(. _tacGenerator.AddEntry(OpKind::Print, exprResultSymbol, nullptr); .)
+	. 
+
+
+Loop										(. Symbol* conditionResultSymbol = 0; .)
+	=
+	"WHILE" 
+	Condition<conditionResultSymbol>
+	"DO" 
+	Statements 
+	"END"
+	.
+
+
+IfElse										(. Symbol* conditionResultSymbol = 0; .)
+	=
+	"IF" 
+	Condition<conditionResultSymbol>
+	"THEN" 
+	Statements 
+	(
+	"END" 
+	| 
+	"ELSE" Statements "END"
+	)
+	.
 
 
 Expr<Symbol*& exprResultSymbol>				(.	Symbol* termResultSymbol = 0; 
 												Symbol* loopTermResultSymbol = 0; 
 												OpKind operatorKind;												
-												Symbol* tmpSymbol = CreateNewIntVarSymbol("tmp"+std::to_string(tmpCounter++));
+												Symbol* tmpSymbol = CreateNewIntVarTmpSymbol();
 												bool firstIteration = true; .)
 	=
 	Term<termResultSymbol>					(.	exprResultSymbol = termResultSymbol; .)
@@ -128,7 +170,7 @@ Expr<Symbol*& exprResultSymbol>				(.	Symbol* termResultSymbol = 0;
 Term<Symbol*& termResultSymbol>				(.	Symbol* factResultSymbol = 0; 
 												Symbol* loopFactResultSymbol = 0; 
 												OpKind operatorKind;												
-												Symbol* tmpSymbol = CreateNewIntVarSymbol("tmp"+std::to_string(tmpCounter++));
+												Symbol* tmpSymbol = CreateNewIntVarTmpSymbol();
 												bool firstIteration = true; .)
 	=
 	Fact<factResultSymbol>					(. termResultSymbol = factResultSymbol; .)
@@ -161,14 +203,32 @@ Fact<Symbol*& factResultSymbol>	 			(. std::string identName; .)
 	rpar.
 
 
-Condition 									(. Symbol* exprResultSymbol = 0; .)
+Condition<Symbol*& conditionResultSymbol>	(.	Symbol* leftExprResultSymbol = 0;
+												Symbol* rightExprResultSymbol = 0;
+												OpKind operatorKind;
+												Symbol* tmpSymbol = CreateNewIntVarTmpSymbol(); .)
 	=
-	Expr<exprResultSymbol>
-	Relop
-	Expr<exprResultSymbol>.		  
+	Expr<leftExprResultSymbol>
+	Relop<operatorKind>
+	Expr<rightExprResultSymbol>				(.	_tacGenerator.AddEntry(operatorKind, leftExprResultSymbol, rightExprResultSymbol, tmpSymbol);
+												conditionResultSymbol = tmpSymbol; .)
+	.	 
 
 
-Relop = "=" | "<=" | ">=" | "!=" | "<" | ">".
+Relop<OpKind& operatorKind> 
+	= 
+	"="										(. operatorKind = OpKind::IsEqual; .)
+	| 
+	"<="									(. operatorKind = OpKind::IsLessEqual; .)
+	| 
+	">="									(. operatorKind = OpKind::IsGreaterEqual; .)
+	| 
+	"!="									(. operatorKind = OpKind::IsNotEqual; .)
+	| 
+	"<"										(. operatorKind = OpKind::IsLess; .)
+	| 
+	">"										(. operatorKind = OpKind::IsGreater; .)
+	.
 
 
 Ident<std::string& name> = 

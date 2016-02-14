@@ -123,38 +123,58 @@ void Parser::Ident(std::string& name) {
 }
 
 void Parser::Stat() {
-		std::string identName; Symbol* exprResultSymbol = 0; 
 		if (la->kind == 1) {
-			Ident(identName);
-			auto leftSymbol = _symTab.Find(identName); 
-			Expect(13);
-			Expr(exprResultSymbol);
-			Expect(4);
-			_tacGenerator.AddEntry(OpKind::Assign, exprResultSymbol, leftSymbol); 
+			Assignement();
 		} else if (la->kind == 14) {
-			Get();
-			Expect(6);
-			Expr(exprResultSymbol);
-			Expect(7);
-			Expect(4);
+			Print();
 		} else if (la->kind == 15) {
+			Loop();
+		} else if (la->kind == 17) {
+			IfElse();
+		} else SynErr(31);
+}
+
+void Parser::Assignement() {
+		std::string identName; Symbol* exprResultSymbol = 0; 
+		Ident(identName);
+		auto leftSymbol = _symTab.Find(identName); 
+		Expect(13);
+		Expr(exprResultSymbol);
+		Expect(4);
+		_tacGenerator.AddEntry(OpKind::Assign, exprResultSymbol, leftSymbol); 
+}
+
+void Parser::Print() {
+		Symbol* exprResultSymbol = 0; 
+		Expect(14);
+		Expect(6);
+		Expr(exprResultSymbol);
+		Expect(7);
+		Expect(4);
+		_tacGenerator.AddEntry(OpKind::Print, exprResultSymbol, nullptr); 
+}
+
+void Parser::Loop() {
+		Symbol* conditionResultSymbol = 0; 
+		Expect(15);
+		Condition(conditionResultSymbol);
+		Expect(16);
+		Statements();
+		Expect(10);
+}
+
+void Parser::IfElse() {
+		Symbol* conditionResultSymbol = 0; 
+		Expect(17);
+		Condition(conditionResultSymbol);
+		Expect(18);
+		Statements();
+		if (la->kind == 10) {
 			Get();
-			Condition();
-			Expect(16);
+		} else if (la->kind == 19) {
+			Get();
 			Statements();
 			Expect(10);
-		} else if (la->kind == 17) {
-			Get();
-			Condition();
-			Expect(18);
-			Statements();
-			if (la->kind == 10) {
-				Get();
-			} else if (la->kind == 19) {
-				Get();
-				Statements();
-				Expect(10);
-			} else SynErr(31);
 		} else SynErr(32);
 }
 
@@ -162,7 +182,7 @@ void Parser::Expr(Symbol*& exprResultSymbol) {
 		Symbol* termResultSymbol = 0; 
 		Symbol* loopTermResultSymbol = 0; 
 		OpKind operatorKind;												
-		Symbol* tmpSymbol = CreateNewIntVarSymbol("tmp"+std::to_string(tmpCounter++));
+		Symbol* tmpSymbol = CreateNewIntVarTmpSymbol();
 		bool firstIteration = true; 
 		Term(termResultSymbol);
 		exprResultSymbol = termResultSymbol; 
@@ -188,18 +208,23 @@ void Parser::Expr(Symbol*& exprResultSymbol) {
 		}
 }
 
-void Parser::Condition() {
-		Symbol* exprResultSymbol = 0; 
-		Expr(exprResultSymbol);
-		Relop();
-		Expr(exprResultSymbol);
+void Parser::Condition(Symbol*& conditionResultSymbol) {
+		Symbol* leftExprResultSymbol = 0;
+		Symbol* rightExprResultSymbol = 0;
+		OpKind operatorKind;
+		Symbol* tmpSymbol = CreateNewIntVarTmpSymbol(); 
+		Expr(leftExprResultSymbol);
+		Relop(operatorKind);
+		Expr(rightExprResultSymbol);
+		_tacGenerator.AddEntry(operatorKind, leftExprResultSymbol, rightExprResultSymbol, tmpSymbol);
+		conditionResultSymbol = tmpSymbol; 
 }
 
 void Parser::Term(Symbol*& termResultSymbol) {
 		Symbol* factResultSymbol = 0; 
 		Symbol* loopFactResultSymbol = 0; 
 		OpKind operatorKind;												
-		Symbol* tmpSymbol = CreateNewIntVarSymbol("tmp"+std::to_string(tmpCounter++));
+		Symbol* tmpSymbol = CreateNewIntVarTmpSymbol();
 		bool firstIteration = true; 
 		Fact(factResultSymbol);
 		termResultSymbol = factResultSymbol; 
@@ -257,30 +282,36 @@ void Parser::Number(Symbol*& numberSymbol) {
 													
 }
 
-void Parser::Relop() {
+void Parser::Relop(OpKind& operatorKind) {
 		switch (la->kind) {
 		case 24: {
 			Get();
+			operatorKind = OpKind::IsEqual; 
 			break;
 		}
 		case 25: {
 			Get();
+			operatorKind = OpKind::IsLessEqual; 
 			break;
 		}
 		case 26: {
 			Get();
+			operatorKind = OpKind::IsGreaterEqual; 
 			break;
 		}
 		case 27: {
 			Get();
+			operatorKind = OpKind::IsNotEqual; 
 			break;
 		}
 		case 28: {
 			Get();
+			operatorKind = OpKind::IsLess; 
 			break;
 		}
 		case 29: {
 			Get();
+			operatorKind = OpKind::IsGreater; 
 			break;
 		}
 		default: SynErr(34); break;
@@ -368,7 +399,7 @@ void Errors::SynErr(int line, int col, int n) {
 			case 29: s = coco_string_create(L"\">\" expected"); break;
 			case 30: s = coco_string_create(L"??? expected"); break;
 			case 31: s = coco_string_create(L"invalid Stat"); break;
-			case 32: s = coco_string_create(L"invalid Stat"); break;
+			case 32: s = coco_string_create(L"invalid IfElse"); break;
 			case 33: s = coco_string_create(L"invalid Fact"); break;
 			case 34: s = coco_string_create(L"invalid Relop"); break;
 

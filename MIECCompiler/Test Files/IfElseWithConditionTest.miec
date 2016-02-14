@@ -5,16 +5,12 @@ PROGRAM Hello
 		c: Integer;
 	END_VAR
 BEGIN
-	a := 3 * 6 + (2 * 3);
-	b := 0;
-	
-	WHILE b < a DO
-		b := b + 1;
-	END
+	a := 5;
+	b := 3;
 	
 	IF a > b THEN
-		print(a);
+		a := 0;
 	ELSE
-		print(b);
+		b := 0;
 	END
 END

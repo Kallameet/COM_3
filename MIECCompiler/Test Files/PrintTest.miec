@@ -2,12 +2,10 @@ PROGRAM Hello
 	BEGIN_VAR
 		a: Integer;
 		b: Integer;
+		c: Integer;
 	END_VAR
 BEGIN
-	a := 3 * 6 + (2 * 3);
-	b := 0;
+	a := 5;
 	
-	WHILE b < a DO
-		b := b + 1;
-	END
+	print(a);
 END

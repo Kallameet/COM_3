@@ -69,11 +69,11 @@ SymbolTable _symTab;
 	Symbol* intTypeSymbol;
 	size_t tmpCounter = 0;
 
-	Symbol* CreateNewIntVarSymbol(std::string name)
+	Symbol* CreateNewIntVarTmpSymbol()
 	{
 		auto intType = intTypeSymbol->GetType();
 		offset += intType->GetSize();		
-		auto intVarSymbol = _symFactory.CreateVarSymbol(name, intType, offset);
+		auto intVarSymbol = _symFactory.CreateVarSymbol("tmp"+std::to_string(tmpCounter++), intType, offset);
 		_symTab.Add(intVarSymbol);
 
 		return intVarSymbol;
@@ -91,12 +91,16 @@ SymbolTable _symTab;
 	void SingleVarDecl(size_t& offset);
 	void Ident(std::string& name);
 	void Stat();
+	void Assignement();
+	void Print();
+	void Loop();
+	void IfElse();
 	void Expr(Symbol*& exprResultSymbol);
-	void Condition();
+	void Condition(Symbol*& conditionResultSymbol);
 	void Term(Symbol*& termResultSymbol);
 	void Fact(Symbol*& factResultSymbol);
 	void Number(Symbol*& numberSymbol);
-	void Relop();
+	void Relop(OpKind& operatorKind);
 
 	void Parse();
 

@@ -1,0 +1,34 @@
+PROGRAM Hello
+	BEGIN_VAR
+		a: Integer;
+		b: Integer;
+		c: Integer;
+	END_VAR
+BEGIN
+	a := 5;
+	b := 3;
+	
+	IF a = b THEN
+		a := 0;
+	END
+	
+	IF a <= b THEN
+		a := 1;
+	END
+	
+	IF a >= b THEN
+		a := 2;
+	END
+	
+	IF a != b THEN
+		a := 3;
+	END
+	
+	IF a < b THEN
+		a := 4;
+	END
+	
+	IF a > b THEN
+		a := 5;
+	END
+END

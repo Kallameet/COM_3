@@ -31,6 +31,12 @@
     <Filter Include="CodeGenProl16">
       <UniqueIdentifier>{a0c0bf06-7a2a-4281-b9eb-33379a9c413a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\CodeGenerator">
+      <UniqueIdentifier>{51896375-7fe1-444e-bcc5-c6632d361b43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CodeGenerator">
+      <UniqueIdentifier>{8c186960-73ce-473a-842f-b138ded102f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniIEC\main.cpp">
@@ -83,6 +89,12 @@
     </ClCompile>
     <ClCompile Include="MiniIEC\AtgHelpers.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniIEC\CodeGenerator.cpp">
+      <Filter>Source Files\CodeGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniIEC\RegisterAdmin.cpp">
+      <Filter>Source Files\CodeGenerator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +151,12 @@
     </ClInclude>
     <ClInclude Include="MiniIEC\AtgHelpers.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniIEC\CodeGenerator.h">
+      <Filter>Header Files\CodeGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniIEC\RegisterAdmin.h">
+      <Filter>Header Files\CodeGenerator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

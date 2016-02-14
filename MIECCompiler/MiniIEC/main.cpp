@@ -11,6 +11,35 @@
 //#define CompileMode
 #define TACTests
 
+
+void ExecuteTACTests(StringVector inputFiles)
+{
+	for (auto inputFile : inputFiles)
+	{
+		wchar_t *fileName = coco_string_create(inputFile.c_str());
+
+		MIEC::Scanner scanner(fileName);
+		MIEC::Parser parser(&scanner);
+
+		parser.Parse();
+
+		if (parser.errors->count == 0)
+		{
+			parser._tacGenerator.Print(std::cout);
+
+			std::cout << inputFile << ": OK" << std::endl << std::endl;
+		}
+		else
+		{
+			std::cout << "Failed " << parser.errors->count << "errors detected" << std::endl;
+
+			std::cout << inputFile << ": FAILED: " << parser.errors->count << " error(s) detected" << std::endl;
+		}
+
+		coco_string_delete(fileName);
+	}
+}
+
 int main(int argc, char* argv[])
 {	
 
@@ -27,32 +56,7 @@ int main(int argc, char* argv[])
 
 #ifdef TACTests
 
-		auto inputFiles = StringVector(argv + 1, argv + argc);
-
-		for (auto inputFile : inputFiles)
-		{
-			wchar_t *fileName = coco_string_create(inputFile.c_str());
-
-			MIEC::Scanner scanner(fileName);
-			MIEC::Parser parser(&scanner);
-
-			parser.Parse();
-
-			if (parser.errors->count == 0)
-			{
-				parser._tacGenerator.Print(std::cout);
-								
-				std::cout << inputFile << ": OK" << std::endl << std::endl;
-			}
-			else
-			{
-				std::cout << "Failed " << parser.errors->count << "errors detected" << std::endl;
-
-				std::cout << inputFile << ": FAILED: " << parser.errors->count << " error(s) detected" << std::endl;
-			}
-
-			coco_string_delete(fileName);
-		}
+		ExecuteTACTests(StringVector(argv + 1, argv + argc));
 
 #endif
 
