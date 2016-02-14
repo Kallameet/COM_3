@@ -15,6 +15,7 @@ public:
 	TACEntry* GetArg2();
 	OpKind GetOperatorKind();
 	void SetTmpResult(int reg);
+	int GetTmpResult();
 	void SetEntryAddress(WORD address);
 	WORD GetEntryAddress();
 
@@ -28,6 +29,7 @@ private:
 	Symbol* _rightSymbol;
 	Symbol* _resultSymbol;
 	WORD _address;
+	int _tmpResult;
 };
 
 #endif

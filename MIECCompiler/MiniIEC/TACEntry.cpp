@@ -27,7 +27,12 @@ OpKind TACEntry::GetOperatorKind()
 
 void TACEntry::SetTmpResult(int reg)
 {
-	 // TODO
+	 _tmpResult = reg;
+}
+
+int TACEntry::GetTmpResult()
+{
+	 return _tmpResult;
 }
 
 void TACEntry::SetEntryAddress(WORD address) 

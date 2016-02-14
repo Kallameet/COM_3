@@ -215,7 +215,7 @@ void CodeGenerator::OperationConditionalJump(TACEntry* apTacEntry, TUnresolvedJu
 
 void CodeGenerator::OperationPrint(TACEntry* apTacEntry)
 {
-
+	
 }
 
 void CodeGenerator::OperationCompare(TACEntry* apTacEntry)
