@@ -7,10 +7,11 @@
 class TACGenerator : public Object
 {
 public:
-	 void AddEntry(OpKind operatorKind, Symbol* leftSymbol);
-	 void AddEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* rightSymbol);
+	void AddEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* resultSymbol);
+	 void AddEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* rightSymbol, Symbol* resultSymbol);
 	 void CleanEntries();
 	 virtual void Print(std::ostream& ostream);
+	 virtual void PrintEntries(std::ostream& ostream);
 private:
 	 std::list<TACEntry*> _tacEntries;
 };

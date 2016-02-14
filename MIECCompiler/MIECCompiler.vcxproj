@@ -76,7 +76,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="MiniIEC\AtgHelpers.cpp" />
     <ClCompile Include="MiniIEC\BaseType.cpp" />
+    <ClCompile Include="MiniIEC\CodeGenProl16\CodeGenProl16.cpp" />
     <ClCompile Include="MiniIEC\ConstIntSymbol.cpp" />
     <ClCompile Include="MiniIEC\main.cpp" />
     <ClCompile Include="MiniIEC\MIECCompiler.cpp" />
@@ -87,6 +89,7 @@
     <ClCompile Include="MiniIEC\SymbolFactory.cpp" />
     <ClCompile Include="MiniIEC\SymbolTable.cpp" />
     <ClCompile Include="MiniIEC\TACEntry.cpp" />
+    <ClCompile Include="MiniIEC\TACGenerator.cpp" />
     <ClCompile Include="MiniIEC\Type.cpp" />
     <ClCompile Include="MiniIEC\TypeSymbol.cpp" />
     <ClCompile Include="MiniIEC\VarSymbol.cpp" />
@@ -99,7 +102,10 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MiniIEC\AtgHelpers.h" />
     <ClInclude Include="MiniIEC\BaseType.h" />
+    <ClInclude Include="MiniIEC\CodeGenProl16\CodeGenProl16.h" />
+    <ClInclude Include="MiniIEC\CodeGenProl16\GlobalDef.h" />
     <ClInclude Include="MiniIEC\ConstIntSymbol.h" />
     <ClInclude Include="MiniIEC\MIECCompiler.h" />
     <ClInclude Include="MiniIEC\Object.h" />

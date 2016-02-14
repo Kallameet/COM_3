@@ -93,3 +93,14 @@ MiniIEC.exe
 MiniIEC.exe
 .\Test Files\Test1.miec: OK
 
+MiniIEC.exe
+MiniIEC.exe
+MiniIEC.exe
+./Test Files/Test1.miec: OK
+
+MiniIEC.exe
+./Test Files/Test1.miec: OK
+
+MiniIEC.exe
+./Test Files/Test1.miec: OK
+

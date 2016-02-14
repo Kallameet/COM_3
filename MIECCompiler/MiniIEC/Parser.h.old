@@ -5,9 +5,11 @@
 
 #include <iostream>
 #include <string>
+#include "AtgHelpers.h"
 #include "SymbolTable.h"
 #include "SymbolFactory.h"
 #include "BaseType.h"
+#include "TACGenerator.h"
 
 
 #include "Scanner.h"
@@ -62,7 +64,8 @@ public:
 
 SymbolTable _symTab;
 	SymbolFactory _symFactory;
- 
+	TACGenerator _tacGenerator;
+	size_t offset = 0;
 
 
 
@@ -74,11 +77,13 @@ SymbolTable _symTab;
 	void VarDecl();
 	void Statements();
 	void SingleVarDecl(size_t& offset);
+	void Ident(std::string& name);
 	void Stat();
-	void Expr();
+	void Expr(Symbol* exprResultSymbol);
 	void Condition();
-	void Term();
-	void Fact();
+	void Term(Symbol* termResultSymbol);
+	void Fact(Symbol* factResultSymbol);
+	void Number(Symbol* numberSymbol);
 	void Relop();
 
 	void Parse();

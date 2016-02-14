@@ -1,15 +1,15 @@
 #include "TACGenerator.h"
 
-void TACGenerator::AddEntry(OpKind operatorKind, Symbol* leftSymbol) 
+void TACGenerator::AddEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* resultSymbol)
 {
-	 TACEntry* tacEntry = new TACEntry(operatorKind, leftSymbol);
-	 _tacEntries.push_back(tacEntry);
+	 TACEntry* tacEntry = new TACEntry(operatorKind, leftSymbol, resultSymbol);
+	 _tacEntries.push_back(tacEntry);	 
 }
 
-void TACGenerator::AddEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* rightSymbol)
+void TACGenerator::AddEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* rightSymbol, Symbol* resultSymbol)
 {
-	 TACEntry* tacEntry = new TACEntry(operatorKind, leftSymbol, rightSymbol);
-	 _tacEntries.push_back(tacEntry);
+	TACEntry* tacEntry = new TACEntry(operatorKind, leftSymbol, rightSymbol, resultSymbol);
+	 _tacEntries.push_back(tacEntry);	 
 }
 
 void TACGenerator::CleanEntries() 
@@ -27,4 +27,16 @@ void TACGenerator::Print(std::ostream & ostream)
 	 {
 		  pEntry->Print(ostream);
 	 }
+}
+
+void TACGenerator::PrintEntries(std::ostream & ostream)
+{
+	int i = 0;
+
+	for (TACEntry* pEntry : _tacEntries)
+	{
+		ostream << i << ": ";
+		pEntry->PrintEntry(ostream);
+		i++;
+	}
 }

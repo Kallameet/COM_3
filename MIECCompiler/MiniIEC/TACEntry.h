@@ -8,15 +8,18 @@
 class TACEntry : public Object
 {
 public:
-	TACEntry(OpKind operatorKind, Symbol* leftSymbol);
-	TACEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* rightSymbol);
+	TACEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* resultSymbol);
+	TACEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* rightSymbol, Symbol* resultSymbol);
 
 	virtual void Print(std::ostream& ostream);
+	virtual void PrintEntry(std::ostream& ostream);
+	
 private:
 	OpKind _operatorKind;
 
 	Symbol* _leftSymbol;
-	Symbol* _rightSymbol;	
+	Symbol* _rightSymbol;
+	Symbol* _resultSymbol;
 };
 
 #endif

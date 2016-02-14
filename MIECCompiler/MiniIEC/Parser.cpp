@@ -75,7 +75,6 @@ void Parser::MIEC() {
 
 void Parser::VarDecl() {
 		Expect(11);
-		size_t offset = 0; 
 		SingleVarDecl(offset);
 		while (la->kind == 1) {
 			SingleVarDecl(offset);
@@ -91,8 +90,8 @@ void Parser::Statements() {
 }
 
 void Parser::SingleVarDecl(size_t& offset) {
-		Expect(1);
-		std::wstring wsIdent = std::wstring(t->val); std::string stringIdent = std::string(wsIdent.begin(), wsIdent.end()); 
+		std::string stringIdent; 
+		Ident(stringIdent);
 		Expect(5);
 		Expect(3);
 		BaseType* intType = new BaseType(BaseTypeName::INT); 
@@ -110,22 +109,31 @@ void Parser::SingleVarDecl(size_t& offset) {
 		else
 		{
 			std::wstring errorMessage = L"Symbol ";
-			errorMessage += wsIdent;
+			std::wstring wstringIdent(stringIdent.begin(), stringIdent.end());
+			errorMessage += wstringIdent;
 			errorMessage += L" is already defined";
 			SemErr(errorMessage.c_str());
 		} 
 }
 
+void Parser::Ident(std::string& name) {
+		Expect(1);
+		std::wstring wsIdent = CreateWString(t->val); name = CreateString(wsIdent); 
+}
+
 void Parser::Stat() {
+		std::string identName; Symbol* exprResultSymbol = 0; 
 		if (la->kind == 1) {
-			Get();
+			Ident(identName);
+			auto leftSymbol = _symTab.Find(identName); 
 			Expect(13);
-			Expr();
+			Expr(exprResultSymbol);
 			Expect(4);
+			_tacGenerator.AddEntry(OpKind::Assign, exprResultSymbol, leftSymbol); 
 		} else if (la->kind == 14) {
 			Get();
 			Expect(6);
-			Expr();
+			Expr(exprResultSymbol);
 			Expect(7);
 			Expect(4);
 		} else if (la->kind == 15) {
@@ -149,46 +157,71 @@ void Parser::Stat() {
 		} else SynErr(32);
 }
 
-void Parser::Expr() {
-		Term();
+void Parser::Expr(Symbol* exprResultSymbol) {
+		Symbol* termResultSymbol = 0; 
+		Term(termResultSymbol);
+		exprResultSymbol = termResultSymbol; 
 		while (la->kind == 20 || la->kind == 21) {
 			if (la->kind == 20) {
 				Get();
 			} else {
 				Get();
 			}
-			Term();
+			Term(termResultSymbol);
 		}
 }
 
 void Parser::Condition() {
-		Expr();
+		Symbol* exprResultSymbol = 0; 
+		Expr(exprResultSymbol);
 		Relop();
-		Expr();
+		Expr(exprResultSymbol);
 }
 
-void Parser::Term() {
-		Fact();
+void Parser::Term(Symbol* termResultSymbol) {
+		Symbol* factResultSymbol = 0; 
+		Fact(factResultSymbol);
+		termResultSymbol = factResultSymbol; 
 		while (la->kind == 22 || la->kind == 23) {
 			if (la->kind == 22) {
 				Get();
 			} else {
 				Get();
 			}
-			Fact();
+			Fact(factResultSymbol);
 		}
 }
 
-void Parser::Fact() {
+void Parser::Fact(Symbol* factResultSymbol) {
+		std::string identName; Symbol* exprResultSymbol = 0; 
 		if (la->kind == 1) {
-			Get();
+			Ident(identName);
+			factResultSymbol = _symTab.Find(identName); 
 		} else if (la->kind == 2) {
-			Get();
+			Number(factResultSymbol);
 		} else if (la->kind == 6) {
 			Get();
-			Expr();
+			Expr(exprResultSymbol);
 			Expect(7);
 		} else SynErr(33);
+}
+
+void Parser::Number(Symbol* numberSymbol) {
+		Expect(2);
+		std::string numberString = CreateString(CreateWString(t->val)); 
+		std::string tmp(numberString);
+		tmp.insert(0, "const");
+		
+														numberSymbol =_symTab.Find(tmp);
+														if (numberSymbol == nullptr)
+														{
+															int val = std::stoi(numberString);
+		
+															auto intTypeSymbol = _symTab.Find("Integer");
+															numberSymbol = _symFactory.CreateConstIntSymbol(tmp, intTypeSymbol->GetType(), val);
+															_symTab.Add(numberSymbol);
+														}
+													
 }
 
 void Parser::Relop() {
