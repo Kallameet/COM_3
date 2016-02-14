@@ -20,9 +20,24 @@ TACEntry* TACEntry::GetArg2()
 	 return nullptr;
 }
 
+OpKind TACEntry::GetOperatorKind()
+{
+	 return _operatorKind;
+}
+
 void TACEntry::SetTmpResult(int reg)
 {
 	 // TODO
+}
+
+void TACEntry::SetEntryAddress(WORD address) 
+{
+	 _address = address;
+}
+
+WORD TACEntry::GetEntryAddress()
+{
+	 return _address;
 }
 
 void TACEntry::Print(std::ostream & ostream)

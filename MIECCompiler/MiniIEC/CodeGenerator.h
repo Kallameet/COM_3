@@ -24,6 +24,7 @@ private:
 	 void OperationJump(TACEntry* apTacEntry, TUnresolvedJumps& arUnresolvedJumps);
 	 void OperationConditionalJump(TACEntry* apTacEntry, TUnresolvedJumps& arUnresolvedJumps);
 	 void OperationPrint(TACEntry* apTacEntry);
+	 void OperationCompare(TACEntry* apTacEntry);
 
 	 CodeGenProl16* _pGenProl16;
 	 RegisterAdmin* _pRegAdmin;
