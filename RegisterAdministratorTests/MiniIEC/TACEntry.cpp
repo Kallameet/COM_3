@@ -22,7 +22,7 @@ TACEntry* TACEntry::GetArg2()
 
 void TACEntry::SetTmpResult(int reg)
 {
-
+	 // TODO
 }
 
 void TACEntry::Print(std::ostream & ostream)

@@ -1,5 +1,8 @@
 #include "RegisterAdmin.h"
 
+RegisterAdmin::RegisterAdmin(MIEC::CodeGenProl16* pGenProl16) : _pGenProl16(pGenProl16)
+{}
+
 int RegisterAdmin::GetRegister()
 {
 	 // TODO

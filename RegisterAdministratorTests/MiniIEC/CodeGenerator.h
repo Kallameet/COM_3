@@ -11,6 +11,8 @@ using namespace MIEC;
 class CodeGenerator : public Object 
 {
 public:
+	 CodeGenerator(std::list<TACEntry*> entries);
+	 ~CodeGenerator();
 	 void GenerateCode(std::ostream& os);
 private:
 	 typedef std::list<std::pair<WORD, TACEntry const*> > TUnresolvedJumps;
@@ -25,6 +27,7 @@ private:
 
 	 CodeGenProl16* _pGenProl16;
 	 RegisterAdmin* _pRegAdmin;
+	 std::list<TACEntry*> _tacEntries;
 };
 
 #endif

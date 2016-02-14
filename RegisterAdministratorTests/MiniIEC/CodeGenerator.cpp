@@ -1,5 +1,19 @@
 #include "CodeGenerator.h"
 
+CodeGenerator::CodeGenerator(std::list<TACEntry*> entries) {
+	 _pGenProl16 = new MIEC::CodeGenProl16;
+	 _pRegAdmin = new RegisterAdmin(_pGenProl16);
+	 for (TACEntry* entry : entries) {
+		  _tacEntries.push_back(entry);
+	 }
+}
+
+CodeGenerator::~CodeGenerator()
+{
+	 delete _pGenProl16;
+	 delete _pRegAdmin;
+}
+
 void CodeGenerator::GenerateCode(std::ostream& os)
 {
 

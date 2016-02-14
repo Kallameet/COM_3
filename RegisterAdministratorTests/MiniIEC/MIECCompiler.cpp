@@ -4,43 +4,52 @@
 
 #include "MIECCompiler.h"
 #include "Parser.h"
+#include "TACGenerator.h"
+#include "CodeGenerator.h"
 
 MIECCompiler::MIECCompiler(StringVector inputFiles)
 {
-	_inputFiles = inputFiles;
+	 _inputFiles = inputFiles;
 }
 
 void MIECCompiler::Compile()
 {
-	std::ofstream log(logFilename, std::ios_base::app | std::ios_base::out);
-	log << "MiniIEC.exe" << std::endl;
+	 std::ofstream log(logFilename, std::ios_base::app | std::ios_base::out);
+	 log << "MiniIEC.exe" << std::endl;
 
-	for (auto &inputFile : _inputFiles)
-	{
-		wchar_t *fileName = coco_string_create(inputFile.c_str());
+	 for (auto &inputFile : _inputFiles)
+	 {
+		  wchar_t *fileName = coco_string_create(inputFile.c_str());
 
-		MIEC::Scanner scanner(fileName);
-		MIEC::Parser parser(&scanner);
+		  MIEC::Scanner scanner(fileName);
+		  MIEC::Parser parser(&scanner);
 
-		parser.Parse();
-		
-		if (parser.errors->count == 0)
-		{
-			parser._symTab.Print(std::cout);
+		  parser.Parse();
 
-			std::cout << "Success" << std::endl;
-			
-			log << inputFile << ": OK" << std::endl;
-		}
-		else
-		{
-			std::cout << "Failed " << parser.errors->count << "errors detected" << std::endl;
+		  if (parser.errors->count == 0)
+		  {
+				std::list<TACEntry*> tacEntries = parser._tacGenerator.GetEntries();
+				CodeGenerator codeGen(tacEntries);
 
-			log << inputFile << ": FAILED: " << parser.errors->count << " error(s) detected" << std::endl;
-		}
+				std::string iexFileName = inputFile.substr(0, inputFile.find(".")) + ".iex";
+				std::ofstream iexFile(iexFileName, std::ios_base::app | std::ios_base::out);
+				codeGen.GenerateCode(iexFile);
 
-		coco_string_delete(fileName);
-	}	
+				parser._symTab.Print(std::cout);
 
-	log << std::endl;
+				std::cout << "Success" << std::endl;
+
+				log << inputFile << ": OK" << std::endl;
+		  }
+		  else
+		  {
+				std::cout << "Failed " << parser.errors->count << "errors detected" << std::endl;
+
+				log << inputFile << ": FAILED: " << parser.errors->count << " error(s) detected" << std::endl;
+		  }
+
+		  coco_string_delete(fileName);
+	 }
+
+	 log << std::endl;
 }

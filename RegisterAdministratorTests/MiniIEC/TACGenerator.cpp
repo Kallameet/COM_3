@@ -21,6 +21,11 @@ void TACGenerator::CleanEntries()
 	 }
 }
 
+std::list<TACEntry*> TACGenerator::GetEntries()
+{
+	 return _tacEntries;
+}
+
 void TACGenerator::Print(std::ostream & ostream)
 {
 	 for (TACEntry* pEntry : _tacEntries)
