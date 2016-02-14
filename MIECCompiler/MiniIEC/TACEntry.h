@@ -10,6 +10,9 @@ class TACEntry : public Object
 public:
 	TACEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* resultSymbol);
 	TACEntry(OpKind operatorKind, Symbol* leftSymbol, Symbol* rightSymbol, Symbol* resultSymbol);
+	TACEntry* GetArg1();
+	TACEntry* GetArg2();
+	void SetTmpResult(int reg);
 
 	virtual void Print(std::ostream& ostream);
 	virtual void PrintEntry(std::ostream& ostream);

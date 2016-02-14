@@ -8,6 +8,23 @@ TACEntry::TACEntry(OpKind operatorKind, Symbol * leftSymbol, Symbol * rightSymbo
 	: _operatorKind(operatorKind), _leftSymbol(leftSymbol), _rightSymbol(rightSymbol), _resultSymbol(resultSymbol)
 {}
 
+TACEntry* TACEntry::GetArg1()
+{
+	 // TODO
+	 return nullptr;
+}
+
+TACEntry* TACEntry::GetArg2()
+{
+	 // TODO
+	 return nullptr;
+}
+
+void TACEntry::SetTmpResult(int reg)
+{
+	 // TODO
+}
+
 void TACEntry::Print(std::ostream & ostream)
 {
 	std::unordered_map<OpKind, std::string> mappedEnumNames =

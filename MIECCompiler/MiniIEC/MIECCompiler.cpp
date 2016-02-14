@@ -4,6 +4,7 @@
 
 #include "MIECCompiler.h"
 #include "Parser.h"
+#include "CodeGenerator.h"
 
 MIECCompiler::MIECCompiler(StringVector inputFiles)
 {
@@ -26,6 +27,13 @@ void MIECCompiler::Compile()
 		
 		if (parser.errors->count == 0)
 		{
+			 std::list<TACEntry*> tacEntries = parser._tacGenerator.GetEntries();
+			 CodeGenerator codeGen(tacEntries);
+
+			 std::string iexFileName = inputFile.substr(0, inputFile.find(".")) + ".iex";
+			 std::ofstream iexFile(iexFileName, std::ios_base::app | std::ios_base::out);
+			 codeGen.GenerateCode(iexFile);
+
 			parser._symTab.Print(std::cout);
 
 			std::cout << "Success" << std::endl;
