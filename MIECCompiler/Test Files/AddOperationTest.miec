@@ -1,9 +1,11 @@
 PROGRAM Hello
 	BEGIN_VAR
 		a: Integer;
-		b: Integer;
-		c: Integer;
 	END_VAR
 BEGIN
+	a := 0;
+
 	a := a + 5;
+
+	print(a);
 END

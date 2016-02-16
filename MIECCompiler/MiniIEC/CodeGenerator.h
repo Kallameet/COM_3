@@ -5,6 +5,7 @@
 #include "TACEntry.h"
 #include "CodeGenProl16\CodeGenProl16.h"
 #include "RegisterAdmin.h"
+#include "VarSymbol.h"
 
 using namespace MIEC;
 
@@ -26,8 +27,11 @@ private:
 	 void OperationPrint(TACEntry* apTacEntry);
 	 void OperationCompare(TACEntry* apTacEntry);
 
+	 VarSymbol* CastToVarSymbol(Symbol* symbol);
+	 void SaveRegisterToMemory(int address, int regValue);
+
 	 CodeGenProl16* _pGenProl16;
-	 RegisterAdmin* _pRegAdmin;
+	 RegisterAdmin* _pRegisterAdmin;
 	 std::list<TACEntry*> _tacEntries;
 };
 

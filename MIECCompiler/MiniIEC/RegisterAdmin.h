@@ -5,23 +5,27 @@
 #include "TACEntry.h"
 #include "CodeGenProl16\CodeGenProl16.h"
 
-struct TReg {
-	 TACEntry* pEntry;
-	 bool free;
+struct TRegister
+{
+	Symbol* pSymbol;
+	bool free;
 };
 
-class RegisterAdmin : public Object 
+class RegisterAdmin : public Object
 {
 public:
-	 RegisterAdmin(MIEC::CodeGenProl16* pGenProl16);
-	 int GetRegister();
-	 int GetRegister(TACEntry* tacEntry);
-	 int AssignRegister(TACEntry* tacEntry);
-	 void FreeRegister(int regNum);
+	RegisterAdmin(MIEC::CodeGenProl16* pGenProl16);
+	int GetRegister();
+	int GetRegister(Symbol* symbol);
+	int AssignRegister(Symbol* symbol);
+	void FreeRegister(int regNum);
 private:
-	 MIEC::CodeGenProl16* _pGenProl16;
-	 static size_t const _maxRegNum = 8;
-	 TReg _registers[_maxRegNum];
+	int FindSymbolInRegisters(Symbol * symbol);
+
+	MIEC::CodeGenProl16* _pGenProl16;
+
+	static size_t const _maxRegNum = 8;
+	TRegister _registers[_maxRegNum];
 };
 
 #endif

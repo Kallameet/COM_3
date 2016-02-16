@@ -1,0 +1,1 @@
+PROGRAM Hello	BEGIN_VAR		a: Integer;	END_VARBEGIN	a := 12;	a := a / 3;	print(a);END

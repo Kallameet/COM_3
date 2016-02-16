@@ -8,9 +8,8 @@
 #include "MIECCompiler.h"
 #include "Parser.h"
 
-//#define CompileMode
-#define TACTests
-
+#define CompileMode
+//#define TACTests
 
 void ExecuteTACTests(StringVector inputFiles)
 {

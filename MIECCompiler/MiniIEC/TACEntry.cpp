@@ -8,45 +8,55 @@ TACEntry::TACEntry(OpKind operatorKind, Symbol * leftSymbol, Symbol * rightSymbo
 	: _operatorKind(operatorKind), _leftSymbol(leftSymbol), _rightSymbol(rightSymbol), _resultSymbol(resultSymbol)
 {}
 
-TACEntry* TACEntry::GetArg1()
+Symbol* TACEntry::GetLeftSymbol()
 {
-	 // TODO
-	 return nullptr;
+	return _leftSymbol;
 }
 
-TACEntry* TACEntry::GetArg2()
+Symbol* TACEntry::GetRightSymbol()
 {
-	 // TODO
-	 return nullptr;
+	return _rightSymbol;
+}
+
+Symbol* TACEntry::GetResultSymbol()
+{
+	return _resultSymbol;
+}
+
+void TACEntry::SetLeftSymbol(Symbol* symbol)
+{
+	_leftSymbol = symbol;
+}
+
+void TACEntry::SetRightSymbol(Symbol* symbol)
+{
+	_rightSymbol = symbol;
+}
+
+void TACEntry::SetResultSymbol(Symbol* symbol)
+{
+	_resultSymbol = symbol;
 }
 
 OpKind TACEntry::GetOperatorKind()
 {
-	 return _operatorKind;
+	return _operatorKind;
 }
 
-void TACEntry::SetTmpResult(int reg)
+void TACEntry::SetEntryAddress(WORD address)
 {
-	 _tmpResult = reg;
-}
-
-int TACEntry::GetTmpResult()
-{
-	 return _tmpResult;
-}
-
-void TACEntry::SetEntryAddress(WORD address) 
-{
-	 _address = address;
+	_address = address;
 }
 
 WORD TACEntry::GetEntryAddress()
 {
-	 return _address;
+	return _address;
 }
 
 void TACEntry::Print(std::ostream & ostream)
 {
+#ifdef _DEBUG 
+
 	std::unordered_map<OpKind, std::string> mappedEnumNames =
 	{
 		{ OpKind::Add			, "Add" },
@@ -66,14 +76,14 @@ void TACEntry::Print(std::ostream & ostream)
 		{ OpKind::Print			, "Print" },
 		{ OpKind::Exit			, "Exit" }
 	};
-		
+
 	if (_resultSymbol != nullptr)
 	{
 		ostream << _resultSymbol->GetName() << " = ";
 	}
 
 	ostream << mappedEnumNames[_operatorKind] << "( ";
-	
+
 	if (_leftSymbol != nullptr)
 	{
 		ostream << _leftSymbol->GetName() << " ";
@@ -81,47 +91,13 @@ void TACEntry::Print(std::ostream & ostream)
 
 	if (_rightSymbol != nullptr)
 	{
-		ostream << _rightSymbol->GetName() << " ";		
+		ostream << _rightSymbol->GetName() << " ";
 	}
 
 	ostream << ")";
+
+#endif
 }
 
-void TACEntry::PrintEntry(std::ostream & ostream)
-{
-	std::unordered_map<OpKind, std::string> mappedEnumNames =
-	{
-		{ OpKind::Add			, "Add" },
-		{ OpKind::Subtract		, "Substract" },
-		{ OpKind::Multiply		, "Multiply" },
-		{ OpKind::Divide		, "Divide" },
-		{ OpKind::IsEqual		, "IsEqual" },
-		{ OpKind::IsLessEqual	, "IsLessEqual" },
-		{ OpKind::IsGreaterEqual, "IsGreaterEqual" },
-		{ OpKind::IsNotEqual	, "IsNotEqual" },
-		{ OpKind::IsLess		, "IsLess" },
-		{ OpKind::IsGreater		, "IsGreater" },
-		{ OpKind::Assign		, "Assign" },
-		{ OpKind::Jump			, "Jump" },
-		{ OpKind::IfJump		, "IfJump" },
-		{ OpKind::IfFalseJump	, "IfFalseJump" },
-		{ OpKind::Print			, "Print" },
-		{ OpKind::Exit			, "Exit" }
-	};
-
-	
-	ostream << _leftSymbol->GetName() << " " << mappedEnumNames[_operatorKind];
-
-	if (_leftSymbol != nullptr)
-	{
-		ostream << " " << _rightSymbol->GetName();
-	}
-
-	if (_rightSymbol != nullptr)
-	{
-		ostream << " " << _rightSymbol->GetName();
-	}
-		
-	ostream << std::endl;
-	
-}
+TACEntry::~TACEntry()
+{}

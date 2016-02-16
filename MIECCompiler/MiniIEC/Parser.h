@@ -79,6 +79,21 @@ SymbolTable _symTab;
 		return intVarSymbol;
 	}
 
+	Symbol* CreateNewIntConstSymbol(int val)
+	{
+		std::string name("const" + std::to_string(val));
+
+		Symbol* numberSymbol =_symTab.Find(name);
+
+		if (numberSymbol == nullptr)
+		{																										
+			numberSymbol = _symFactory.CreateConstIntSymbol(name, intTypeSymbol->GetType(), val);
+			_symTab.Add(numberSymbol);
+		}
+		
+		return numberSymbol;
+	}
+
 
 
 	Parser(Scanner *scanner);

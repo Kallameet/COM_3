@@ -7,10 +7,15 @@ PROGRAM Hello
 BEGIN
 	a := 5;
 	b := 3;
+	c := 0;
 	
 	IF a > b THEN
-		a := 0;
+		c := 1;
 	ELSE
-		b := 0;
+		c := 2;
 	END
+
+	print(a);
+	print(b);
+	print(c);
 END

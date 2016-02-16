@@ -165,14 +165,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Test Files\Test1.miec">
-      <Filter>Test Files</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Test Files\Test2.miec">
-      <Filter>Test Files</Filter>
-    </None>
     <None Include="Test Files\AddOperationTest.miec">
       <Filter>Test Files</Filter>
     </None>
@@ -204,6 +196,9 @@
       <Filter>Test Files</Filter>
     </None>
     <None Include="Test Files\WhileTest.miec">
+      <Filter>Test Files</Filter>
+    </None>
+    <None Include="Test Files\DivisionOperationTest.miec">
       <Filter>Test Files</Filter>
     </None>
   </ItemGroup>

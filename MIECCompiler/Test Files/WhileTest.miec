@@ -2,7 +2,6 @@ PROGRAM Hello
 	BEGIN_VAR
 		a: Integer;
 		b: Integer;
-		c: Integer;
 	END_VAR
 BEGIN
 	a := 5;
@@ -11,6 +10,7 @@ BEGIN
 	WHILE a > b DO
 		a := a - 1;
 	END
-	
-	b := 0;
+
+	print(a);
+	print(b);
 END

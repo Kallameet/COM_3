@@ -7,28 +7,33 @@ PROGRAM Hello
 BEGIN
 	a := 5;
 	b := 3;
+	c := 0;
 	
 	IF a = b THEN
-		a := 0;
+		c := 0;
 	END
 	
 	IF a <= b THEN
-		a := 1;
+		c := 1;
 	END
 	
 	IF a >= b THEN
-		a := 2;
+		c := 2;
 	END
 	
 	IF a != b THEN
-		a := 3;
+		c := 3;
 	END
 	
 	IF a < b THEN
-		a := 4;
+		c := 4;
 	END
 	
 	IF a > b THEN
-		a := 5;
+		c := 5;
 	END
+
+	print(a);
+	print(b);
+	print(c);
 END

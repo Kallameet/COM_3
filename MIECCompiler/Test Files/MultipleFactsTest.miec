@@ -2,8 +2,15 @@ PROGRAM Hello
 	BEGIN_VAR
 		a: Integer;
 		b: Integer;
-		c: Integer;
 	END_VAR
 BEGIN
-	a := 5 / a * 5 * c;
+	a := 5;
+	b := 3;
+
+	a := 6 * a / 5;
+	
+	
+
+	print(a);
+	print(b);
 END
