@@ -16,19 +16,22 @@ public:
 	 ~CodeGenerator();
 	 void GenerateCode(std::ostream& os);
 private:
-	 typedef std::list<std::pair<WORD, TACEntry const*> > TUnresolvedJumps;
+	 typedef std::list<std::pair<WORD, const int> > TUnresolvedJumps;
 	 void OperationAdd(TACEntry* apTacEntry);
 	 void OperationSubtract(TACEntry* apTacEntry);
 	 void OperationMultiply(TACEntry* apTacEntry);
 	 void OperationDivide(TACEntry* apTacEntry);
 	 void OperationAssign(TACEntry* apTacEntry);
 	 void OperationJump(TACEntry* apTacEntry, TUnresolvedJumps& arUnresolvedJumps);
-	 void OperationConditionalJump(TACEntry* apTacEntry, TUnresolvedJumps& arUnresolvedJumps);
+	 void OperationIfFalseJump(TACEntry* apTacEntry, TUnresolvedJumps& arUnresolvedJumps);
 	 void OperationPrint(TACEntry* apTacEntry);
 	 void OperationCompare(TACEntry* apTacEntry);
 
 	 VarSymbol* CastToVarSymbol(Symbol* symbol);
-	 void SaveRegisterToMemory(int address, int regValue);
+	 void SaveRegisterToMemory(int address, int inverseResults);
+	 void Compare(TACEntry* apTacEntry, bool inverseComparison);
+	 void CompareEquals(TACEntry* apTacEntry, int regResult, bool equals);
+	 void CompareLess(TACEntry* apTacEntry, int regResult, bool inverseResults, bool inverseComparison);
 
 	 CodeGenProl16* _pGenProl16;
 	 RegisterAdmin* _pRegisterAdmin;

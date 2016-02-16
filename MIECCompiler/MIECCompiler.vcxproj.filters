@@ -201,5 +201,8 @@
     <None Include="Test Files\DivisionOperationTest.miec">
       <Filter>Test Files</Filter>
     </None>
+    <None Include="Test Files\FibonacciTest.miec">
+      <Filter>Test Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

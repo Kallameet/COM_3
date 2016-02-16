@@ -18,7 +18,6 @@ enum class OpKind
 		IsGreater,
 		Assign,
 		Jump,
-		IfJump,
 		IfFalseJump,
 		Print,
 		Exit

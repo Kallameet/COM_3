@@ -659,3 +659,529 @@ MiniIEC.exe
 
 ./Test Files/PrintTest.miec: OK
 
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+./Test Files/IfWithConditionTest.miec: OK
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+./Test Files/IfWithConditionTest.miec: OK
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+./Test Files/IfWithConditionTest.miec: OK
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+./Test Files/IfWithConditionTest.miec: OK
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+./Test Files/IfWithConditionTest.miec: OK
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+./Test Files/FibonacciTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+./Test Files/IfWithConditionTest.miec: OK
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+./Test Files/FibonacciTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+./Test Files/IfWithConditionTest.miec: OK
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+./Test Files/FibonacciTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+./Test Files/IfWithConditionTest.miec: OK
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+./Test Files/FibonacciTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+./Test Files/IfWithConditionTest.miec: OK
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+./Test Files/FibonacciTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+./Test Files/IfWithConditionTest.miec: OK
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+./Test Files/FibonacciTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+./Test Files/IfWithConditionTest.miec: OK
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+./Test Files/FibonacciTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+./Test Files/IfWithConditionTest.miec: OK
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+./Test Files/FibonacciTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+./Test Files/IfWithConditionTest.miec: OK
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+./Test Files/FibonacciTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+./Test Files/IfWithConditionTest.miec: OK
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+./Test Files/FibonacciTest.miec: OK
+
+MiniIEC.exe
+./Test Files/AssignLiteralToLiteralTest.miec: OK
+
+./Test Files/AssignNumberToLiteralTest.miec: OK
+
+./Test Files/AddOperationTest.miec: OK
+
+./Test Files/MultipleTermsTest.miec: OK
+
+./Test Files/MultiplyOperationTest.miec: OK
+
+./Test Files/DivisionOperationTest.miec: OK
+
+./Test Files/MultipleFactsTest.miec: OK
+
+./Test Files/ArithmeticExpressionTest.miec: OK
+
+./Test Files/PrintTest.miec: OK
+
+./Test Files/IfWithConditionTest.miec: OK
+
+./Test Files/IfElseWithConditionTest.miec: OK
+
+./Test Files/WhileTest.miec: OK
+
+./Test Files/FibonacciTest.miec: OK
+

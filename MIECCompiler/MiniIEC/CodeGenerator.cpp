@@ -4,11 +4,11 @@
 #include "VarSymbol.h"
 #include "ConstIntSymbol.h"
 
-CodeGenerator::CodeGenerator(std::list<TACEntry*> entries) 
+CodeGenerator::CodeGenerator(std::list<TACEntry*> entries)
 {
 	_pGenProl16 = new MIEC::CodeGenProl16;
 	_pRegisterAdmin = new RegisterAdmin(_pGenProl16);
-	for (TACEntry* entry : entries) 
+	for (TACEntry* entry : entries)
 	{
 		_tacEntries.push_back(entry);
 	}
@@ -22,12 +22,15 @@ CodeGenerator::~CodeGenerator()
 
 void CodeGenerator::GenerateCode(std::ostream& os)
 {
-	TUnresolvedJumps unrJumps;
+	TUnresolvedJumps unresolvedJumps;
+
 	for (TACEntry* entry : _tacEntries)
 	{
 		entry->SetEntryAddress(_pGenProl16->GetCodePosition());
 		OpKind operatorKind = entry->GetOperatorKind();
-		switch (operatorKind) {
+
+		switch (operatorKind)
+		{
 		case OpKind::Add:
 			OperationAdd(entry);
 			break;
@@ -41,20 +44,10 @@ void CodeGenerator::GenerateCode(std::ostream& os)
 			OperationDivide(entry);
 			break;
 		case OpKind::IsEqual:
-			OperationCompare(entry);
-			break;
 		case OpKind::IsLessEqual:
-			OperationCompare(entry);
-			break;
 		case OpKind::IsGreaterEqual:
-			OperationCompare(entry);
-			break;
 		case OpKind::IsNotEqual:
-			OperationCompare(entry);
-			break;
 		case OpKind::IsLess:
-			OperationCompare(entry);
-			break;
 		case OpKind::IsGreater:
 			OperationCompare(entry);
 			break;
@@ -62,13 +55,10 @@ void CodeGenerator::GenerateCode(std::ostream& os)
 			OperationAssign(entry);
 			break;
 		case OpKind::Jump:
-			OperationJump(entry, unrJumps);
-			break;
-		case OpKind::IfJump:
-			OperationConditionalJump(entry, unrJumps);
+			OperationJump(entry, unresolvedJumps);
 			break;
 		case OpKind::IfFalseJump:
-			OperationConditionalJump(entry, unrJumps);
+			OperationIfFalseJump(entry, unresolvedJumps);
 			break;
 		case OpKind::Print:
 			OperationPrint(entry);
@@ -81,6 +71,15 @@ void CodeGenerator::GenerateCode(std::ostream& os)
 		}
 	}
 
+	for (auto unresolvedJump : unresolvedJumps)
+	{
+		auto iterator = _tacEntries.cbegin();
+
+		std::advance(iterator, unresolvedJump.second);
+
+		_pGenProl16->SetAddress(unresolvedJump.first, (*iterator)->GetEntryAddress());		
+	}
+
 	_pGenProl16->WriteIex(os);
 }
 
@@ -88,19 +87,19 @@ void CodeGenerator::OperationAdd(TACEntry* apTacEntry)
 {
 	int regA = _pRegisterAdmin->GetRegister(apTacEntry->GetLeftSymbol());
 	int regB = _pRegisterAdmin->GetRegister(apTacEntry->GetRightSymbol());
-	
-	// regA contains result of addition -> assign to DAC-Entry
-	_pGenProl16->Add(regA, regB);	
 
-	VarSymbol* resultSymbol = CastToVarSymbol(apTacEntry->GetResultSymbol());		
+	// regA contains result of addition -> assign to DAC-Entry
+	_pGenProl16->Add(regA, regB);
+
+	VarSymbol* resultSymbol = CastToVarSymbol(apTacEntry->GetResultSymbol());
 	int regResult = _pRegisterAdmin->AssignRegister(apTacEntry->GetResultSymbol());
 
 	_pGenProl16->Move(regResult, regA);
-	SaveRegisterToMemory(resultSymbol->GetOffset(), regResult);	
+	SaveRegisterToMemory(resultSymbol->GetOffset(), regResult);
 
 	_pRegisterAdmin->FreeRegister(regA);
 	_pRegisterAdmin->FreeRegister(regB);
-	_pRegisterAdmin->FreeRegister(regResult);	
+	_pRegisterAdmin->FreeRegister(regResult);
 }
 
 void CodeGenerator::OperationSubtract(TACEntry* apTacEntry)
@@ -158,9 +157,9 @@ void CodeGenerator::OperationMultiply(TACEntry* apTacEntry)
 
 	//sets jump address for end of while-statement
 	_pGenProl16->SetAddress(jumpData1, _pGenProl16->GetCodePosition());
-				
+
 	SaveRegisterToMemory(resultSymbol->GetOffset(), regResult);
-	
+
 	// free all other registers
 	_pRegisterAdmin->FreeRegister(regA);
 	_pRegisterAdmin->FreeRegister(regB);
@@ -200,13 +199,13 @@ void CodeGenerator::OperationDivide(TACEntry* apTacEntry)
 	_pGenProl16->LoadI(regJmp, codePosStart);
 	_pGenProl16->Jump(regJmp);
 	_pGenProl16->SetAddress(jumpData3, _pGenProl16->GetCodePosition());
-		
+
 	auto resultSymbol = CastToVarSymbol(apTacEntry->GetResultSymbol());
 	int regResult = _pRegisterAdmin->AssignRegister(apTacEntry->GetResultSymbol());
-	
+
 	// regA contains result of division -> assign to DAC-Entry
 	_pGenProl16->Move(regResult, regA);
-	
+
 	SaveRegisterToMemory(resultSymbol->GetOffset(), regResult);
 
 	// free all other registers
@@ -224,25 +223,49 @@ void CodeGenerator::OperationAssign(TACEntry* apTacEntry)
 	VarSymbol* resultSymbol = CastToVarSymbol(apTacEntry->GetResultSymbol());
 
 	auto regResult = _pRegisterAdmin->AssignRegister(resultSymbol);
-		
+
 	auto regA = _pRegisterAdmin->GetRegister(apTacEntry->GetLeftSymbol());
 
 	_pGenProl16->Move(regResult, regA);
 
 	SaveRegisterToMemory(resultSymbol->GetOffset(), regResult);
-	
+
 	_pRegisterAdmin->FreeRegister(regResult);
-	_pRegisterAdmin->FreeRegister(regA);	
+	_pRegisterAdmin->FreeRegister(regA);
 }
 
 void CodeGenerator::OperationJump(TACEntry* apTacEntry, TUnresolvedJumps& arUnresolvedJumps)
 {
+	auto leftSymbol = dynamic_cast<ConstIntSymbol*>(apTacEntry->GetLeftSymbol());
 
+	int regJumpAddress = _pRegisterAdmin->GetRegister();
+	auto jumpAddressData = _pGenProl16->LoadI(regJumpAddress, 0);
+
+	arUnresolvedJumps.push_back(std::pair<WORD, const int>(jumpAddressData, leftSymbol->GetValue()));
+
+	_pGenProl16->Jump(regJumpAddress);
+
+	_pRegisterAdmin->FreeRegister(regJumpAddress);
 }
 
-void CodeGenerator::OperationConditionalJump(TACEntry* apTacEntry, TUnresolvedJumps& arUnresolvedJumps)
+void CodeGenerator::OperationIfFalseJump(TACEntry* apTacEntry, TUnresolvedJumps& arUnresolvedJumps)
 {
+	int regA = _pRegisterAdmin->GetRegister(apTacEntry->GetLeftSymbol());
+	auto rightSymbol = dynamic_cast<ConstIntSymbol*>(apTacEntry->GetRightSymbol());
 
+	int regJumpAddress = _pRegisterAdmin->GetRegister();
+	auto jumpAddressData = _pGenProl16->LoadI(regJumpAddress, 0);
+
+	arUnresolvedJumps.push_back(std::pair<WORD, const int>(jumpAddressData, rightSymbol->GetValue()));
+
+	int regZero = _pRegisterAdmin->GetRegister();
+	_pGenProl16->LoadI(regZero, 0);
+	_pGenProl16->Add(regA, regZero);
+	_pGenProl16->JumpZ(regJumpAddress);
+
+	_pRegisterAdmin->FreeRegister(regA);
+	_pRegisterAdmin->FreeRegister(regJumpAddress);
+	_pRegisterAdmin->FreeRegister(regZero);
 }
 
 void CodeGenerator::OperationPrint(TACEntry* apTacEntry)
@@ -256,11 +279,40 @@ void CodeGenerator::OperationPrint(TACEntry* apTacEntry)
 
 void CodeGenerator::OperationCompare(TACEntry* apTacEntry)
 {
-	//int regA = _pRegisterAdmin->GetRegister(apTacEntry->GetArg1());
-	//int regB = _pRegisterAdmin->GetRegister(apTacEntry->GetArg2());
-	//_pGenProl16->Comp(regA, regB);
-	//_pRegisterAdmin->FreeRegister(regA);
-	//_pRegisterAdmin->FreeRegister(regB);
+	int regA = _pRegisterAdmin->GetRegister(apTacEntry->GetLeftSymbol());
+	int regB = _pRegisterAdmin->GetRegister(apTacEntry->GetRightSymbol());
+
+	VarSymbol* resultSymbol = CastToVarSymbol(apTacEntry->GetResultSymbol());
+	int regResult = _pRegisterAdmin->AssignRegister(resultSymbol);
+
+
+	switch (apTacEntry->GetOperatorKind())
+	{
+	case OpKind::IsEqual:
+		CompareEquals(apTacEntry, regResult, true);
+		break;
+	case OpKind::IsLessEqual:
+		CompareLess(apTacEntry, regResult, false, true);
+		break;
+	case OpKind::IsGreaterEqual:
+		CompareLess(apTacEntry, regResult, false, false);
+		break;
+	case OpKind::IsNotEqual:
+		CompareEquals(apTacEntry, regResult, false);
+		break;
+	case OpKind::IsLess:
+		CompareLess(apTacEntry, regResult, true, false);
+		break;
+	case OpKind::IsGreater:
+		CompareLess(apTacEntry, regResult, true, true);
+		break;
+	}
+
+	SaveRegisterToMemory(resultSymbol->GetOffset(), regResult);
+
+	_pRegisterAdmin->FreeRegister(regA);
+	_pRegisterAdmin->FreeRegister(regB);
+	_pRegisterAdmin->FreeRegister(regResult);
 }
 
 VarSymbol* CodeGenerator::CastToVarSymbol(Symbol* symbol)
@@ -281,4 +333,72 @@ void CodeGenerator::SaveRegisterToMemory(int address, int regValue)
 	_pGenProl16->Store(regValue, regResultAddress);
 
 	_pRegisterAdmin->FreeRegister(regResultAddress);
+}
+
+void CodeGenerator::Compare(TACEntry* apTacEntry, bool inverseComparison)
+{
+	int regA = _pRegisterAdmin->GetRegister(apTacEntry->GetLeftSymbol());
+	int regB = _pRegisterAdmin->GetRegister(apTacEntry->GetRightSymbol());
+
+	if (inverseComparison)
+	{
+		_pGenProl16->Comp(regB, regA);
+	}
+	else
+	{
+		_pGenProl16->Comp(regA, regB);
+	}
+
+
+	_pRegisterAdmin->FreeRegister(regA);
+	_pRegisterAdmin->FreeRegister(regB);
+}
+
+void CodeGenerator::CompareEquals(TACEntry* apTacEntry, int regResult, bool inverseResults)
+{
+	int regJumpAddress1 = _pRegisterAdmin->GetRegister();
+	auto jumpAddressData1 = _pGenProl16->LoadI(regJumpAddress1, 0);
+
+	Compare(apTacEntry, false);
+	_pGenProl16->JumpZ(regJumpAddress1);
+
+	// zero not set
+	_pGenProl16->LoadI(regResult, inverseResults ? 0 : 1);
+
+	int regJumpAddress2 = _pRegisterAdmin->GetRegister();
+	auto jumpAddressData2 = _pGenProl16->LoadI(regJumpAddress2, 0);
+	_pGenProl16->Jump(regJumpAddress2);
+	_pGenProl16->SetAddress(jumpAddressData1, _pGenProl16->GetCodePosition());
+
+	// zero set
+	_pGenProl16->LoadI(regResult, inverseResults ? 1 : 0);
+	_pGenProl16->SetAddress(jumpAddressData2, _pGenProl16->GetCodePosition());
+
+	_pRegisterAdmin->FreeRegister(regJumpAddress1);
+	_pRegisterAdmin->FreeRegister(regJumpAddress2);
+}
+
+void CodeGenerator::CompareLess(TACEntry* apTacEntry, int regResult, bool inverseResults, bool inverseComparison)
+{
+	int regJumpAddress1 = _pRegisterAdmin->GetRegister();
+	auto jumpAddressData1 = _pGenProl16->LoadI(regJumpAddress1, 0);
+
+	Compare(apTacEntry, inverseComparison);
+
+	_pGenProl16->JumpC(regJumpAddress1);
+
+	// carry set
+	_pGenProl16->LoadI(regResult, inverseResults ? 0 : 1);
+
+	int regJumpAddress2 = _pRegisterAdmin->GetRegister();
+	auto jumpAddressData2 = _pGenProl16->LoadI(regJumpAddress2, 0);
+	_pGenProl16->Jump(regJumpAddress2);
+	_pGenProl16->SetAddress(jumpAddressData1, _pGenProl16->GetCodePosition());
+
+	// carry not set
+	_pGenProl16->LoadI(regResult, inverseResults ? 1 : 0);
+	_pGenProl16->SetAddress(jumpAddressData2, _pGenProl16->GetCodePosition());
+
+	_pRegisterAdmin->FreeRegister(regJumpAddress1);
+	_pRegisterAdmin->FreeRegister(regJumpAddress2);
 }

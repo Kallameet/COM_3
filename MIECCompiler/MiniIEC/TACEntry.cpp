@@ -71,7 +71,6 @@ void TACEntry::Print(std::ostream & ostream)
 		{ OpKind::IsGreater		, "IsGreater" },
 		{ OpKind::Assign		, "Assign" },
 		{ OpKind::Jump			, "Jump" },
-		{ OpKind::IfJump		, "IfJump" },
 		{ OpKind::IfFalseJump	, "IfFalseJump" },
 		{ OpKind::Print			, "Print" },
 		{ OpKind::Exit			, "Exit" }

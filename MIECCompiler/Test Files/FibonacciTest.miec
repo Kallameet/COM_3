@@ -1,0 +1,29 @@
+PROGRAM Hello
+	BEGIN_VAR
+		n			: Integer;
+		previous	: Integer;
+		current		: Integer;
+		next		: Integer;
+		i			: Integer;
+	END_VAR
+BEGIN
+	n := 9;
+
+	IF n != 0 THEN
+		previous	:= 0;
+		current		:= 1;
+	
+		i := 1;
+		WHILE i < n DO
+			next := previous + current;
+			previous := current;
+			current := next;
+
+			i := i + 1;
+		END
+
+		print(current);
+	ELSE
+		print(0);
+	END
+END

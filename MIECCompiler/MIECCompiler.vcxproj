@@ -132,6 +132,7 @@
     <None Include="Test Files\AssignLiteralToLiteralTest.miec" />
     <None Include="Test Files\AssignNumberToLiteralTest.miec" />
     <None Include="Test Files\DivisionOperationTest.miec" />
+    <None Include="Test Files\FibonacciTest.miec" />
     <None Include="Test Files\IfElseWithConditionTest.miec" />
     <None Include="Test Files\IfWithConditionTest.miec" />
     <None Include="Test Files\MultipleFactsTest.miec" />

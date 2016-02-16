@@ -29,9 +29,8 @@ int RegisterAdmin::GetRegister()
 
 int RegisterAdmin::GetRegister(Symbol* symbol)
 {
-	int reg = -1;
-
-	if (reg = FindSymbolInRegisters(symbol) != -1)
+	int reg = FindSymbolInRegisters(symbol);
+	if (reg != -1)
 	{
 		return reg;
 	}
