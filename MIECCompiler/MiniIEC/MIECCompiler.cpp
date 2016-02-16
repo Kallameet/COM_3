@@ -17,7 +17,6 @@ void MIECCompiler::Compile()
 	std::ofstream log(logFilename, std::ios_base::app | std::ios_base::out);
 	log << "MiniIEC.exe" << std::endl;
 
-
 	for (auto &inputFile : _inputFiles)
 	{
 		wchar_t *fileName = coco_string_create(inputFile.c_str());
@@ -54,8 +53,7 @@ void MIECCompiler::Compile()
 
 			log << inputFile << ": FAILED: " << parser.errors->count << " error(s) detected" << std::endl;
 		}
-		coco_string_delete(fileName);
-
-		log << std::endl;
+		coco_string_delete(fileName);		
 	}
+	log << std::endl;
 }
