@@ -14,18 +14,21 @@ public:
 	 * <param name="offset">	 The offset of the varsymbol. </param>
 	 */
 	 VarSymbol(std::string const& name, Type* type, size_t offset);
+
 	 /**
 	 * <summary>  Get offset of the varsymbol. </summary>
 	 *
 	 * <returns> Offset of varsymbol.
 	 */
 	 size_t GetOffset();
+
 	 /**
 	 * <summary>  Prints the varsymbol to given ostream. </summary>
 	 *
 	 * <param name="ostream">   Ostream where varsymbol is printed to. </param>
 	 */
 	 void Print(std::ostream& ostream);
+
 private:
 	 size_t _offset;
 };

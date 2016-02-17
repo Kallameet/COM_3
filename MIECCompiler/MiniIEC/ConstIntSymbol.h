@@ -14,18 +14,21 @@ public:
 	 * <param name="value">	 The value of the constintsymbol. </param>
 	 */
 	 ConstIntSymbol(std::string const& name, Type* type, int value);
+
 	 /**
 	 * <summary>  Get offset of the constintsymbol. </summary>
 	 *
 	 * <returns> Value of constintsymbol.
 	 */
 	 int GetValue();
+
 	 /**
 	 * <summary>  Prints the constintsymbol to given ostream. </summary>
 	 *
 	 * <param name="ostream">   Ostream where constintsymbol is printed to. </param>
 	 */
 	 void Print(std::ostream& ostream);
+
 private:
 	 int _value;
 };

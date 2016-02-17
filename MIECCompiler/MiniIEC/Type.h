@@ -14,6 +14,7 @@ public:
 	 * <returns> Size of type.
 	 */
 	 size_t GetSize();
+
 	 /**
 	 * <summary>  Get typename of the type. </summary>
 	 *

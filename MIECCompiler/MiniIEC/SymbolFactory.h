@@ -13,6 +13,7 @@ public:
 	 * <summary>  Constructor. </summary>
 	 */
 	 SymbolFactory();
+
 	 /**
 	 * <summary>  Create a constintsymbol. </summary>
 	 *
@@ -23,6 +24,7 @@ public:
 	 * <returns>  Pointer to constintsymbol.
 	 */
 	 ConstIntSymbol* CreateConstIntSymbol(std::string const& name, Type* type, int value);
+
 	 /**
 	 * <summary>  Create a typesymbol. </summary>
 	 *
@@ -32,6 +34,7 @@ public:
 	 * <returns>  Pointer to typesymbol.
 	 */
 	 TypeSymbol* CreateTypeSymbol(std::string const& name, Type* type);
+
 	 /**
 	 * <summary>  Create a varsymbol. </summary>
 	 *
@@ -42,6 +45,7 @@ public:
 	 * <returns>  Pointer to varsymbol.
 	 */
 	 VarSymbol* CreateVarSymbol(std::string const& name, Type* type, size_t offset);
+
 private:
 
 };

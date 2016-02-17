@@ -20,12 +20,14 @@ public:
 	 * <param name="pGenProl16">   The code generator which is needed for the registers. </param>
 	 */
 	 RegisterAdmin(MIEC::CodeGenProl16* pGenProl16);
+
 	 /**
 	 * <summary>  Get register without parameter. </summary>
 	 *
 	 * <returns> Number of register.
 	 */
 	 int GetRegister();
+
 	 /**
 	 * <summary>  Get register for a specific symbol. </summary>
 	 *
@@ -34,6 +36,7 @@ public:
 	 * <returns> Number of register.
 	 */
 	 int GetRegister(Symbol* symbol);
+
 	 /**
 	 * <summary>  Assign register to a specific symbol. </summary>
 	 *
@@ -42,12 +45,14 @@ public:
 	 * <returns> Number of register.
 	 */
 	 int AssignRegister(Symbol* symbol);
+
 	 /**
 	 * <summary>  Free register with given register number. </summary>
 	 *
 	 * <param name="regNum">   Register number. </param>
 	 */
 	 void FreeRegister(int regNum);
+
 private:
 	 int FindSymbolInRegisters(Symbol * symbol);
 

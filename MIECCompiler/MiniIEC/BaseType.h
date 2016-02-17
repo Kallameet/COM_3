@@ -15,6 +15,7 @@ public:
 	 *
 	 */
 	 BaseType(BaseTypeName typeName);
+
 	 /**
 	 * <summary>  Get typename of the basetype. </summary>
 	 *

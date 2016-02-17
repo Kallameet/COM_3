@@ -18,17 +18,20 @@ public:
 	 * <param name="entries">   List of TAC entries. </param>
 	 */
 	 CodeGenerator(std::list<TACEntry*> entries);
+
 	 /**
 	 * <summary>  Destructor. </summary>
 	 *
 	 */
 	 ~CodeGenerator();
+
 	 /**
 	 * <summary>  Runs through all TAC entries and generates code for every operation with the help of CodeGen16. </summary>
 	 *
 	 * <param name="os">   Ostream for the created .iex file. </param>
 	 */
 	 void GenerateCode(std::ostream& os);
+
 private:
 	 typedef std::list<std::pair<WORD, const int> > TUnresolvedJumps;
 	 void OperationAdd(TACEntry* apTacEntry);
