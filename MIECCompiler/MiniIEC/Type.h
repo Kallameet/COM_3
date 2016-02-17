@@ -11,14 +11,14 @@ public:
 	 /**
 	 * <summary>  Get size of the type. </summary>
 	 *
-	 * <returns> Size of type.
+	 * <returns> Size of type. </returns>
 	 */
 	 size_t GetSize();
 
 	 /**
 	 * <summary>  Get typename of the type. </summary>
 	 *
-	 * <returns> Typename of type.
+	 * <returns> Typename of type. </returns>
 	 */
 	 virtual std::string GetTypeName() const = 0;
 

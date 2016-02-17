@@ -20,14 +20,14 @@ public:
 	 /**
 	 * <summary>  Get name of the symbol. </summary>
 	 *
-	 * <returns> Name of symbol.
+	 * <returns> Name of symbol. </returns>
 	 */
 	 std::string GetName();
 
 	 /**
 	 * <summary>  Get type of the symbol. </summary>
 	 *
-	 * <returns> Type of symbol.
+	 * <returns> Type of symbol. </returns>
 	 */
 	 Type* GetType();
 

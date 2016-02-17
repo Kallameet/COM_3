@@ -24,7 +24,7 @@ public:
 	 /**
 	 * <summary>  Get register without parameter. </summary>
 	 *
-	 * <returns> Number of register.
+	 * <returns> Number of register. </returns>
 	 */
 	 int GetRegister();
 
@@ -33,7 +33,7 @@ public:
 	 *
 	 * <param name="symbol">  Specific symbol.  </param>
 	 *
-	 * <returns> Number of register.
+	 * <returns> Number of register. </returns>
 	 */
 	 int GetRegister(Symbol* symbol);
 
@@ -42,7 +42,7 @@ public:
 	 *
 	 * <param name="symbol">   Specific symbol. </param>
 	 *
-	 * <returns> Number of register.
+	 * <returns> Number of register. </returns>
 	 */
 	 int AssignRegister(Symbol* symbol);
 

@@ -21,7 +21,7 @@ public:
 	 * <param name="type">  The type of the constintsymbol. </param>
 	 * <param name="value">  The value of the constintsymbol. </param>
 	 *
-	 * <returns>  Pointer to constintsymbol.
+	 * <returns>  Pointer to constintsymbol. </returns>
 	 */
 	 ConstIntSymbol* CreateConstIntSymbol(std::string const& name, Type* type, int value);
 
@@ -31,7 +31,7 @@ public:
 	 * <param name="name">  The name of the typesymbol. </param>
 	 * <param name="type">  The type of the typesymbol. </param>
 	 *
-	 * <returns>  Pointer to typesymbol.
+	 * <returns>  Pointer to typesymbol. </returns>
 	 */
 	 TypeSymbol* CreateTypeSymbol(std::string const& name, Type* type);
 
@@ -42,7 +42,7 @@ public:
 	 * <param name="type">  The type of the varsymbol. </param>
 	 * <param name="offset">  The offset of the varsymbol. </param>
 	 *
-	 * <returns>  Pointer to varsymbol.
+	 * <returns>  Pointer to varsymbol. </returns>
 	 */
 	 VarSymbol* CreateVarSymbol(std::string const& name, Type* type, size_t offset);
 

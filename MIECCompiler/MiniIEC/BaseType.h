@@ -19,7 +19,7 @@ public:
 	 /**
 	 * <summary>  Get typename of the basetype. </summary>
 	 *
-	 * <returns> Typename of basetype.
+	 * <returns> Typename of basetype. </returns>
 	 */
 	 std::string GetTypeName() const;
 

@@ -18,7 +18,7 @@ public:
 	 /**
 	 * <summary>  Get offset of the constintsymbol. </summary>
 	 *
-	 * <returns> Value of constintsymbol.
+	 * <returns> Value of constintsymbol. </returns>
 	 */
 	 int GetValue();
 

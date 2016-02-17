@@ -18,7 +18,7 @@ public:
 	 /**
 	 * <summary>  Get offset of the varsymbol. </summary>
 	 *
-	 * <returns> Offset of varsymbol.
+	 * <returns> Offset of varsymbol. </returns>
 	 */
 	 size_t GetOffset();
 
