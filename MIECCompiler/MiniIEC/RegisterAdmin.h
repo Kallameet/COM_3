@@ -23,18 +23,23 @@ public:
 	 /**
 	 * <summary>  Get register without parameter. </summary>
 	 *
+	 * <returns> Number of register.
 	 */
 	 int GetRegister();
 	 /**
 	 * <summary>  Get register for a specific symbol. </summary>
 	 *
 	 * <param name="symbol">  Specific symbol.  </param>
+	 *
+	 * <returns> Number of register.
 	 */
 	 int GetRegister(Symbol* symbol);
 	 /**
 	 * <summary>  Assign register to a specific symbol. </summary>
 	 *
 	 * <param name="symbol">   Specific symbol. </param>
+	 *
+	 * <returns> Number of register.
 	 */
 	 int AssignRegister(Symbol* symbol);
 	 /**
