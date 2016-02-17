@@ -7,25 +7,49 @@
 
 struct TRegister
 {
-	Symbol* pSymbol;
-	bool free;
+	 Symbol* pSymbol;
+	 bool free;
 };
 
 class RegisterAdmin : public Object
 {
 public:
-	RegisterAdmin(MIEC::CodeGenProl16* pGenProl16);
-	int GetRegister();
-	int GetRegister(Symbol* symbol);
-	int AssignRegister(Symbol* symbol);
-	void FreeRegister(int regNum);
+	 /**
+	 * <summary>  Constructor. </summary>
+	 *
+	 * <param name="pGenProl16">   The code generator which is needed for the registers. </param>
+	 */
+	 RegisterAdmin(MIEC::CodeGenProl16* pGenProl16);
+	 /**
+	 * <summary>  Get register without parameter. </summary>
+	 *
+	 */
+	 int GetRegister();
+	 /**
+	 * <summary>  Get register for a specific symbol. </summary>
+	 *
+	 * <param name="symbol">  Specific symbol.  </param>
+	 */
+	 int GetRegister(Symbol* symbol);
+	 /**
+	 * <summary>  Assign register to a specific symbol. </summary>
+	 *
+	 * <param name="symbol">   Specific symbol. </param>
+	 */
+	 int AssignRegister(Symbol* symbol);
+	 /**
+	 * <summary>  Free register with given register number. </summary>
+	 *
+	 * <param name="regNum">   Register number. </param>
+	 */
+	 void FreeRegister(int regNum);
 private:
-	int FindSymbolInRegisters(Symbol * symbol);
+	 int FindSymbolInRegisters(Symbol * symbol);
 
-	MIEC::CodeGenProl16* _pGenProl16;
+	 MIEC::CodeGenProl16* _pGenProl16;
 
-	static size_t const _maxRegNum = 8;
-	TRegister _registers[_maxRegNum];
+	 static size_t const _maxRegNum = 8;
+	 TRegister _registers[_maxRegNum];
 };
 
 #endif
