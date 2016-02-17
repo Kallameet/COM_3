@@ -6,13 +6,28 @@
 class ConstIntSymbol : public Symbol
 {
 public:
-	ConstIntSymbol(std::string const& name, Type* type, int value);
-
-	int GetValue();
-
-	void Print(std::ostream& ostream);
+	 /**
+	 * <summary>  Constructor. </summary>
+	 *
+	 * <param name="name">   The name of the constintsymbol. </param>
+	 * <param name="type">	 The type of the constintsymbol. </param>
+	 * <param name="value">	 The value of the constintsymbol. </param>
+	 */
+	 ConstIntSymbol(std::string const& name, Type* type, int value);
+	 /**
+	 * <summary>  Get offset of the constintsymbol. </summary>
+	 *
+	 * <returns> Value of constintsymbol.
+	 */
+	 int GetValue();
+	 /**
+	 * <summary>  Prints the constintsymbol to given ostream. </summary>
+	 *
+	 * <param name="ostream">   Ostream where constintsymbol is printed to. </param>
+	 */
+	 void Print(std::ostream& ostream);
 private:
-	int _value;
+	 int _value;
 };
 
 #endif

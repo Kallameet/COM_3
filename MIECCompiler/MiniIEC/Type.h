@@ -7,15 +7,25 @@
 
 class Type : public Object
 {
-public:	
-	size_t GetSize();
-	virtual std::string GetTypeName() const = 0;
+public:
+	 /**
+	 * <summary>  Get size of the type. </summary>
+	 *
+	 * <returns> Size of type.
+	 */
+	 size_t GetSize();
+	 /**
+	 * <summary>  Get typename of the type. </summary>
+	 *
+	 * <returns> Typename of type.
+	 */
+	 virtual std::string GetTypeName() const = 0;
 
 protected:
-	Type(size_t size);	
+	 Type(size_t size);
 
 private:
-	size_t _size;
+	 size_t _size;
 };
 
 #endif
